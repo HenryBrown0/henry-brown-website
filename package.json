@@ -1,26 +1,17 @@
 {
-  "name": "henry-brown-website",
-  "version": "1.0.0",
-  "description": "Node.js server for my personal website",
-  "main": "server.js",
-  "scripts": {
-    "start": "ts-node-dev --respawn --transpileOnly server.ts",
-    "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "HenryBrown0",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.17.1",
-    "node-fetch": "^2.6.0"
-  },
-  "devDependencies": {
-    "@types/express": "^4.17.0",
-    "@types/node-fetch": "^2.5.0",
-    "ts-node-dev": "^1.0.0-pre.40",
-    "typescript": "^3.5.3"
-  },
-  "engines": {
-    "node": "10.16.1"
-  }
+	"name": "henry-brown-website",
+	"version": "1.0.0",
+	"description": "Node.js server for my personal website",
+	"main": "server.js",
+	"scripts": {
+		"build-server": "cd server/ && npm i && npm run build && cd ..",
+		"build-client": "echo \"No client build\"",
+		"build": "npm run build-server && npm run build-client",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "HenryBrown0",
+	"license": "MIT",
+	"engines": {
+		"node": "10.16.1"
+	}
 }
