@@ -7,6 +7,8 @@ app.get('/', ((request, response) => {
 	response.send('Hello world')
 }));
 
+app.use(express.static('build/public/'))
+
 app.listen(PORT, (() => {
 	console.info('\x1b[33m%s\x1b[0m', `Listening on port ${PORT}`);
 }));

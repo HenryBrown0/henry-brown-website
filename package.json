@@ -4,13 +4,28 @@
 	"description": "Node.js server for my personal website",
 	"main": "server.js",
 	"scripts": {
-		"build-server": "cd server/ && npm i && npm run build && cd ..",
-		"build-client": "echo \"No client build\"",
-		"build": "npm run build-server && npm run build-client",
+		"clean-build": "echo \"Removing previous build...\" && rm -r build/ || true && rm -r client/build || true && echo \"Removed previous build\"",
+		"build-server": "echo \"Building server...\" && npm run compile-server && echo \"Built server\"",
+		"build-client": "echo \"Building client...\" && npm run compile-client && npm run move-static-client-files && echo \"Built client\"",
+		"compile-server": "echo \"Compiling server...\" && npm i && cd server/ && tsc && cd .. && echo \"Compiled server\"",
+		"compile-client": "echo \"Compiling client...\" && cd client/ && npm i && npm run build && cd .. && echo \"Compiled client\"",
+		"move-static-client-files": "echo \"Moving complied client...\" && mv client/build/ build/public/ && echo \"Moved complied client\"",
+		"build": "npm run clean-build && npm run build-server && npm run build-client",
+		"start-server": "ts-node-dev --respawn --transpileOnly server/index.ts",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "HenryBrown0",
 	"license": "MIT",
+	"dependencies": {
+		"express": "^4.17.1",
+		"node-fetch": "^2.6.0"
+	},
+	"devDependencies": {
+		"@types/express": "^4.17.0",
+		"@types/node-fetch": "^2.5.0",
+		"ts-node-dev": "^1.0.0-pre.40",
+		"typescript": "^3.5.3"
+	},
 	"engines": {
 		"node": "10.16.1"
 	}
