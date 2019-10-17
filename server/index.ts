@@ -1,10 +1,33 @@
 import express = require('express');
+import { Client } from 'pg';
 const PORT = process.env.PORT || 3000
+const DATABASE_URL = process.env.DATABASE_URL
 
 const app: express.Application = express();
 
-app.get('/', ((request, response) => {
-	response.send('Hello world')
+const getData = async () => {
+	const client = new Client({
+		connectionString: DATABASE_URL,
+		ssl: DATABASE_URL ? true : false,
+	});
+
+	await client.connect();
+
+	const response = await client.query('SELECT * FROM blogPost;')
+
+	await client.end();
+	
+	return response.rows
+}
+
+app.get('/', (async (request, response) => {
+	let rows;
+	try {
+		rows = await getData()
+	} catch (error) {
+		response.status(500).end()
+	}
+	response.send(rows)
 }));
 
 app.use(express.static('build/public/'))
