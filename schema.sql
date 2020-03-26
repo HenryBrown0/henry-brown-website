@@ -1,5 +1,0 @@
-CREATE TABLE blogPost(
-	id serial PRIMARY KEY,
-	title VARCHAR (128) UNIQUE NOT NULL,
-	url VARCHAR (128) UNIQUE NOT NULL
-);
