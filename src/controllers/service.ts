@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 const service = (_: Request, res: Response) => {
-	res.render('Service', {
+	res.render('service', {
 		pageTitle: 'Services',
 		year: new Date().getFullYear(),
 	});
