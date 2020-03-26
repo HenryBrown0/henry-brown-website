@@ -1,0 +1,7 @@
+<header class='header'>
+	<h1><a class='header-link' href='/'>Henry Brown</a></h1>
+	<h2 class='header-h2'>{{pageTitle}}</h2>
+	{{if(options.description)}}
+		<p>{{description}}</p>
+	{{/if}}
+</header>

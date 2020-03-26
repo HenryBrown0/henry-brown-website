@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{{include(head)/}}
+	</head>
+	<body class='layout-body'>
+		{{include(header)/}}
+
+		<section class='index-social-row'>
+			<a href='https://twitter.com/Henry_Brown_0'>
+				<i class='icon fab fa-twitter'></i>
+			</a>
+			<a href='https://t.me/HenryBrown0'>
+				<i class='icon fab fa-telegram-plane'></i>
+			</a>
+			<a href='https://github.com/HenryBrown0'>
+				<i class='icon fab fa-github'></i>
+			</a>
+		</section>
+
+		<section class='layout-section'>
+			<div class='index-row'>
+				<a
+					href='https://twitter.com/Henry_Brown_0'
+					class='index-square layout-flex-center index-twitter'
+				>
+					<h3><i class='icon index-white fab fa-twitter'></i></h3>
+				</a>
+				<div id='blog' class='index-rectangle'>
+					<a href='/blog/' class='card-link layout-clean-link'>
+						<div
+							style='background-image:url(/image/cow-progressive.jpg)'
+							class='card-background layout-flex-center card'
+						>
+							<div class='card-text-container'>
+								<h3>Blog</h3>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class='index-row'>
+				<div id='project' class='index-rectangle'>
+					<a href='/project/' class='card-link layout-clean-link'>
+						<div
+							style='background-image:url(/image/fly-progressive.jpg)'
+							class='card-background layout-flex-center card'
+						>
+							<div class='card-text-container'>
+								<h3>Projects</h3>
+							</div>
+						</div>
+					</a>
+				</div>
+				<a
+					href='https://t.me/HenryBrown0'
+					class='index-square layout-flex-center index-telegram'
+				>
+					<h3><i class='icon index-white fab fa-telegram-plane'></i></h3>
+				</a>
+			</div>
+			<div class='index-row'>
+				<a
+					href='https://github.com/HenryBrown0'
+					class='index-square layout-flex-center index-github'
+				>
+					<h3><i class='icon index-white fab fa-github'></i></h3>
+				</a>
+
+				<div id='cv' class='index-rectangle'>
+					<a href='/service/' class='card-link layout-clean-link'>
+						<div
+							style='background-image:url(/image/bird-progressive.jpg)'
+							class='card-background layout-flex-center card'
+						>
+							<div class='card-text-container'>
+								<h3>Services</h3>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<section class='layout-section'><!-- BlogPost --></section>
+
+		{{include(footer)/}}
+	</body>
+</html>

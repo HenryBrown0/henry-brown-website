@@ -1,0 +1,42 @@
+{
+  "name": "henry-brown-website",
+  "version": "2.0.0",
+  "description": "Personal website hosted at https://henrybrown0.com",
+  "main": "dist/server.js",
+  "scripts": {
+    "start": "yarn watch & NODE_ENV=development nodemon dist/server.js",
+    "watch": "yarn watch-ts & yarn watch-styles",
+    "watch-ts": "parcel watch src/server.ts --target node",
+    "watch-styles": "parcel watch styles/* --out-dir dist/static/styles",
+    "build": "yarn run build-ts && yarn run build-styles",
+    "build-ts": "parcel build src/server.ts --target node",
+    "build-styles": "parcel build styles/* --out-dir dist/static/styles",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "HenryBrown0",
+  "license": "MIT",
+  "engineStrict": true,
+  "engines": {
+    "node": "12"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "graphql-request": "^1.8.2",
+    "helmet": "^3.21.2",
+    "markdown-it": "^10.0.0",
+    "squirrelly": "^7.9.0",
+    "tinycolor2": "^1.4.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "@types/helmet": "^0.0.45",
+    "@types/markdown-it": "^0.0.9",
+    "@types/squirrelly": "^7.1.0",
+    "@types/tinycolor2": "^1.4.2",
+    "nodemon": "^2.0.2",
+    "parcel": "^1.12.4",
+    "sass": "^1.24.1",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.4"
+  }
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{{include(head)/}}
+	</head>
+	<body class='layout-body'>
+		{{include(header)/}}
+
+		<section class='layout-section'>
+			{{if(options.projects.length)}}
+				{{foreach(options.projects)}}
+				<div class='project-item'>
+					<a href='{{@this.link}}' class='project-link'>
+						<div style='background-image: url({{@this.image}})' class='project-background'>
+							<div class='project-text-container'>
+								<h3 class='project-title'>
+									{{@this.name}} {{if(@this.isArchived)}}<sup><i class='fal fa-snowflake' aria-label='Archived'></i></sup>{{/if}}
+								</h3>
+								<p class='project-para'>Stars: {{@this.stars}} | PR: {{@this.pullRequests}} | Issues: {{@this.issues}}</p>
+								<p class='project-para'><small>{{@this.license}}</small></p>
+								<p class='project-para'><small>Last updated: {{@this.updatedAt}}</small></p>
+							</div>
+						</div>
+					</a>
+				</div>
+				{{/foreach}}
+			{{#else}}
+				No projects found
+			{{/if}}
+		</section>
+
+		{{include(footer)/}}
+	</body>
+</html>

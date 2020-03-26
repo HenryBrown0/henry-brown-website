@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{{include(head)/}}
+	</head>
+	<body class='layout-body'>
+		{{include(header)/}}
+
+		<section class='layout-section'>
+			Coming soon...
+		</section>
+
+		{{include(footer)/}}
+	</body>
+</html>
