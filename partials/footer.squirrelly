@@ -1,0 +1,3 @@
+<footer class='footer'>
+	<p>Build and hosted by Henry Brown © {{year}}</p>
+</footer>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang='en'>
+	<head>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		{{ if(options.description)}}
+			<meta name='description' content='{{description}}'>
+		{{/if}}
+		<script async src='https://kit.fontawesome.com/14b7efde74.js'></script>
+		<title>HB | {{name}}</title>
+		<link
+			rel='stylesheet'
+			href='https://cdn.jsdelivr.net/npm/bulma@0.8.1/css/bulma.min.css'
+		/>
+	</head>
+	<body class='has-navbar-fixed-top'>
+
+		<nav
+			class='navbar is-fixed-top'
+			role='navigation'
+			aria-label='main navigation'
+		>
+			<div class='navbar-brand'>
+				<a class='navbar-item' href='/'>
+					HB
+				</a>
+		
+				<a
+					id='navigation-bar-burger-button'
+					role='button'
+					class='navbar-burger burger'
+					aria-label='menu'
+					aria-expanded='false'
+					data-target='navigation-bar-content'
+				>
+					<span aria-hidden='true'></span>
+					<span aria-hidden='true'></span>
+					<span aria-hidden='true'></span>
+				</a>
+			</div>
+		
+			<div id='navigation-bar-content' class='navbar-menu'>
+				<div class='navbar-start'>
+					<a href='/blog' class='navbar-item'>
+						Blog
+					</a>
+		
+					<a href='/project' class='navbar-item'>
+						Projects
+					</a>
+				</div>
+			</div>
+		</nav>
+
+		
+		<section
+			class='hero {{if(options.isBackgroundDark)}}is-dark{{/if}}'
+			style='background-color: {{backgroundColor}};'
+		>
+			<div class='hero-body'>
+				<div class='container'>
+					<h1 class='title is-3'>
+						{{name}}
+					</h1>
+					<h2 class='subtitle is-5'>
+						{{ if(options.description)}}{{description}}{{/if}}
+					</h2>
+				</div>
+			</div>
+		</section>
+
+		<section class='section'>
+			<main class='container'>
+				<div class='columns'>
+					<div class='column'>
+						<a href='{{githubUrl}}' class='button' target='_blank'>
+							<span class='icon is-small'>
+								<i class='fab fa-github'></i>
+							</span>
+							<span>View on GitHub</span>
+						</a>
+					</div>
+				</div>
+				<div class='columns'>
+					<div class='column'>
+						{{if(options.project)}}
+							<div class='content'>{{project | safe}}</div>
+						{{#else}}
+							No project found
+						{{/if}}
+					</div>
+				</div>
+			</main>
+		</section>
+
+		{{include(footer)/}}
+
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const navBarBurgerBtn = document.getElementById(
+					'navigation-bar-burger-button'
+				);
+				const navBarContent = document.getElementById(
+					'navigation-bar-content'
+				);
+
+				navBarBurgerBtn.addEventListener('click', () => {
+					navBarBurgerBtn.classList.toggle('is-active');
+					navBarContent.classList.toggle('is-active');
+
+					const isOpen = JSON.parse(
+						navBarBurgerBtn.getAttribute('aria-expanded')
+					);
+					navBarBurgerBtn.setAttribute('aria-expanded', !isOpen);
+				});
+			});
+		</script>
+	</body>
+</html>

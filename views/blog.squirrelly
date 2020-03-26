@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{{include(head)/}}
+	</head>
+	<body class='layout-body'>
+		{{include(header)/}}
+
+		<section class='layout-section'>
+			{{if(options.posts.length)}}
+				{{foreach(options.posts)}}
+				<a href='{{@this.link}}' class='card-link layout-clean-link'>
+					<div
+						style='background-image: url({{@this.image}})'
+						class='card-background layout-flex-center card'
+					>
+						<div class='card-text-container'>
+							<h3>{{@this.title}}</h3>
+						</div>
+					</div>
+				</a>
+				{{/foreach}}
+			{{#else}}
+				No blog posts
+			{{/if}}
+		</section>
+
+		{{include(footer)/}}
+	</body>
+</html>
