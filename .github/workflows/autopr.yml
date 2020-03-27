@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: production
+          ref: master
       - name: Reset promotion branch
         run: |
           git fetch origin staging:staging
