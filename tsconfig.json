@@ -8,19 +8,13 @@
 		"sourceMap": true,
 		"resolveJsonModule": true,
 		"outDir": "dist",
-		"baseUrl": ".",
-		"paths": {
-			"*": [
-				"node_modules/*",
-				"src/types/*"
-			]
-		},
-		"lib": [
-			"es2015"
-		]
+		"sourceRoot": "/",
+		"inlineSources": true
 	},
 	"include": [
-		"src/**/*",
-		"server.ts"
+		"src/**/*"
+	],
+	"exclude": [
+		"node_modules"
 	]
 }
