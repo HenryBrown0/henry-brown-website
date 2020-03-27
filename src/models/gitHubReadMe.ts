@@ -10,7 +10,7 @@ const getReadMe = async (name: string): Promise<string> => {
 	const uri = `https://raw.githubusercontent.com/HenryBrown0/${name}/master/README.md`;
 
 	return new Promise((resolve, reject) => {
-		https.get(uri, (response) => {
+		https.get(uri, (response) => { // eslint-disable-line
 			if (response.statusCode !== 200) {
 				response.resume();
 				console.warn('Non 200 status code from read me');
@@ -26,11 +26,11 @@ const getReadMe = async (name: string): Promise<string> => {
 			response.setEncoding('utf8');
 
 			let rawData = '';
-			response.on('data', (chunk) => rawData += chunk);
+			response.on('data', (chunk) => {
+				rawData += chunk;
+			});
 			response.on('end', () => resolve(renderHTML(rawData)));
-		}).on('error', (error) => {
-			return reject(error);
-		});
+		}).on('error', (error) => reject(error));
 	});
 };
 

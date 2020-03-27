@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response } from 'express'; // eslint-disable-line
 import NodeCache from 'node-cache';
 import getGitHubReadMe from '../models/gitHubReadMe';
 import getGithubRepository from '../models/gitHubRepository';

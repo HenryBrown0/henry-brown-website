@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response } from 'express'; // eslint-disable-line
 
 const service = (_: Request, res: Response) => {
 	res.render('service', {
