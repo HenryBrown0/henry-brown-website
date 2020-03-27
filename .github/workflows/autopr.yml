@@ -1,0 +1,21 @@
+name: Create master promotion pull request from staging
+on:
+  push:
+    branches:
+      - staging
+jobs:
+  productionPromotion:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: production
+      - name: Reset promotion branch
+        run: |
+          git fetch origin staging:staging
+          git reset --hard staging
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master-promotion
