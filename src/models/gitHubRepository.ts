@@ -1,6 +1,10 @@
 import tinyColor from 'tinycolor2';
+import * as sentry from '@sentry/node';
 import getGraphQLClient from '../helpers/github';
 import transformUriToName from '../helpers/transformUriToName';
+import { addBreadcrumb, captureException, captureMessage } from '../helpers/logger';
+
+const { Info, Warning } = sentry.Severity;
 
 interface IRepository {
 	uri: string;
@@ -22,12 +26,31 @@ interface IRawGitHubRepository {
 	isPrivate: boolean;
 }
 
+interface IGitHubError {
+	type: string;
+	path: string[];
+	locations: [
+		{
+			line: number,
+			column: number
+		}
+	],
+	message: string;
+}
+
 const transformGithubRepository = (repository: IRawGitHubRepository): IRepository => {
+	addBreadcrumb(
+		'transformGithubRepository',
+		'Transforming GitHub repository',
+		repository,
+		Info,
+	);
+
 	const backgroundColor = repository.primaryLanguage.color;
 	return {
 		backgroundColor,
 		description: repository.description,
-		githubUrl: repository.url,
+		gitHubUrl: repository.url,
 		isBackgroundDark: tinyColor(backgroundColor).isDark(),
 		isPrivate: repository.isPrivate,
 		name: transformUriToName(repository.name),
@@ -50,6 +73,15 @@ const githubRepositoryQuery: string = `
 `;
 
 const getGithubRepository = async (name: string): Promise<IRepository> => {
+	addBreadcrumb(
+		'getGithubRepository',
+		'Getting repository from GitHub',
+		{
+			name,
+		},
+		Info,
+	);
+
 	const graphQLClient = getGraphQLClient();
 
 	const graphQLRequest = graphQLClient.request(
@@ -64,14 +96,19 @@ const getGithubRepository = async (name: string): Promise<IRepository> => {
 		graphQLResponse = await graphQLRequest;
 	} catch (error) {
 		if (error && error.response && error.response.status === 200) {
-			console.warn(error.response.errors);
-			return null;
+			const errorTypes: string[] = error.response.errors
+				.map((githubError: IGitHubError) => githubError.type);
+
+			if (errorTypes.includes('NOT_FOUND')) {
+				return null;
+			}
 		}
-		throw error;
+		captureException(error);
+		return null;
 	}
 
 	if (!graphQLResponse || !graphQLResponse.repository) {
-		console.warn('Empty GitHub GraphQL response');
+		captureMessage('Empty GitHub GraphQL response', Warning);
 		return null;
 	}
 

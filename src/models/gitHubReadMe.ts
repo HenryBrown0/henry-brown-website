@@ -1,25 +1,43 @@
 import https from 'https';
+import * as sentry from '@sentry/node';
 import renderHTML from '../helpers/markdownToHTML';
+import { addBreadcrumb, captureException, captureMessage } from '../helpers/logger';
 
-const getReadMe = async (name: string): Promise<string> => {
+const { Info, Warning } = sentry.Severity;
+
+const getGitHubReadMe = async (name: string): Promise<string> => {
+	addBreadcrumb(
+		'getGitHubReadMe',
+		'Getting read me from GitHub',
+		{
+			name,
+		},
+		Info,
+	);
+
 	if (!name) {
-		console.warn('No repository name provided');
+		captureMessage('No repository name provided', Warning);
 		return null;
 	}
 
 	const uri = `https://raw.githubusercontent.com/HenryBrown0/${name}/master/README.md`;
 
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve) => {
 		https.get(uri, (response) => { // eslint-disable-line
+			if (response.statusCode === 404) {
+				response.resume();
+				return resolve(null);
+			}
+
 			if (response.statusCode !== 200) {
 				response.resume();
-				console.warn('Non 200 status code from read me');
+				captureMessage(`${response.statusCode} status code from read me`, Warning);
 				return resolve(null);
 			}
 
 			if (!/^text\/plain/.test(response.headers['content-type'])) {
 				response.resume();
-				console.warn('Incorrect file formate from read me');
+				captureMessage('Incorrect file formate from read me', Warning);
 				return resolve(null);
 			}
 
@@ -30,8 +48,11 @@ const getReadMe = async (name: string): Promise<string> => {
 				rawData += chunk;
 			});
 			response.on('end', () => resolve(renderHTML(rawData)));
-		}).on('error', (error) => reject(error));
+		}).on('error', (error) => {
+			captureException(error);
+			return resolve(null);
+		});
 	});
 };
 
-export default getReadMe;
+export default getGitHubReadMe;
