@@ -45,7 +45,7 @@ Go to [http://localhost:3000](http://localhost:3000) to see the site
 client
 * [HelmetJS](https://helmetjs.github.io/) - Express.js security with HTTP
 headers
-* [Node Cache] - NodeJS internal caching
+* [Node Cache](https://github.com/node-cache/node-cache) - NodeJS internal caching
 * [Markdown-it](https://markdown-it.github.io/) - Markdown parser
 * [TinyColor2](https://bgrins.github.io/TinyColor/) - Color manipulation and
 conversion
@@ -64,5 +64,5 @@ see the
 ## License
 
 This project is licensed under the MIT License - see the
-[LICENSE.md](https://github.com/HenryBrown0/henry-brown-website/blob/release/LICENSE)
+[LICENSE.md](https://github.com/HenryBrown0/henry-brown-website/blob/master/LICENSE)
 file for details
