@@ -6,7 +6,12 @@
 			<meta name='description' content='{{description}}'>
 		{{/if}}
 		<script async src='https://kit.fontawesome.com/14b7efde74.js'></script>
-		<title>HB | {{name}}</title>
+		{{if(options.name)}}
+			<title>HB | {{name}}</title>
+		{{#else}}
+			<title>HB | No project found</title>
+		{{/if}}
+		
 		<link
 			rel='stylesheet'
 			href='https://cdn.jsdelivr.net/npm/bulma@0.8.1/css/bulma.min.css'
@@ -59,36 +64,40 @@
 			<div class='hero-body'>
 				<div class='container'>
 					<h1 class='title is-3'>
-						{{name}}
+						{{if(options.name)}}
+							{{name}}
+						{{#else}}
+							No project found
+						{{/if}}
 					</h1>
-					<h2 class='subtitle is-5'>
-						{{ if(options.description)}}{{description}}{{/if}}
-					</h2>
+					{{if(options.description)}}
+						<h2 class='subtitle is-5'>{{description}}</h2>
+					{{/if}}
 				</div>
 			</div>
 		</section>
 
 		<section class='section'>
 			<main class='container'>
-				<div class='columns'>
-					<div class='column'>
-						<a href='{{githubUrl}}' class='button' target='_blank'>
-							<span class='icon is-small'>
-								<i class='fab fa-github'></i>
-							</span>
-							<span>View on GitHub</span>
-						</a>
+				{{if(options.gitHubUrl)}}
+					<div class='columns'>
+						<div class='column'>
+							<a href='{{gitHubUrl}}' class='button' target='_blank'>
+								<span class='icon is-small'>
+									<i class='fab fa-github'></i>
+								</span>
+								<span>View on GitHub</span>
+							</a>
+						</div>
 					</div>
-				</div>
-				<div class='columns'>
-					<div class='column'>
-						{{if(options.project)}}
+				{{/if}}
+				{{if(options.project)}}
+					<div class='columns'>
+						<div class='column'>
 							<div class='content'>{{project | safe}}</div>
-						{{#else}}
-							No project found
-						{{/if}}
+						</div>
 					</div>
-				</div>
+				{{/if}}
 			</main>
 		</section>
 

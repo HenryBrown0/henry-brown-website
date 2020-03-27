@@ -6,7 +6,7 @@ interface IRepository {
 	uri: string;
 	backgroundColor: string;
 	description: string;
-	githubUrl: string;
+	gitHubUrl: string;
 	isBackgroundDark: boolean;
 	isPrivate: boolean;
 	name: string;
@@ -59,9 +59,19 @@ const getGithubRepository = async (name: string): Promise<IRepository> => {
 		},
 	);
 
-	const graphQLResponse = await graphQLRequest;
+	let graphQLResponse;
+	try {
+		graphQLResponse = await graphQLRequest;
+	} catch (error) {
+		if (error && error.response && error.response.status === 200) {
+			console.warn(error.response.errors);
+			return null;
+		}
+		throw error;
+	}
 
 	if (!graphQLResponse || !graphQLResponse.repository) {
+		console.warn('Empty GitHub GraphQL response');
 		return null;
 	}
 
