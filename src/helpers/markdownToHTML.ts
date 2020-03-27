@@ -1,5 +1,5 @@
 import MarkdownIt from 'markdown-it';
-import Token from 'markdown-it/lib/token';
+import Token from 'markdown-it/lib/token'; // eslint-disable-line
 
 const titleToSize: { [key: string]: string; } = {
 	h1: 'is-hidden',
@@ -13,8 +13,6 @@ md.renderer.rules.heading_open = (tokens: Token[], idx: number) => {
 	return `<${tag} class='title ${titleToSize[tag]}'>`;
 };
 
-const renderHTML = (rawMarkdown: string): string => {
-	return md.render(rawMarkdown);
-};
+const renderHTML = (rawMarkdown: string): string => md.render(rawMarkdown);
 
 export default renderHTML;

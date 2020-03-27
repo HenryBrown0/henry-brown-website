@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response } from 'express'; // eslint-disable-line
 
 const index = (_: Request, res: Response) => {
 	res.render('index', {

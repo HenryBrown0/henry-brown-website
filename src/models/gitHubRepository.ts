@@ -22,6 +22,19 @@ interface IRawGitHubRepository {
 	isPrivate: boolean;
 }
 
+const transformGithubRepository = (repository: IRawGitHubRepository): IRepository => {
+	const backgroundColor = repository.primaryLanguage.color;
+	return {
+		backgroundColor,
+		description: repository.description,
+		githubUrl: repository.url,
+		isBackgroundDark: tinyColor(backgroundColor).isDark(),
+		isPrivate: repository.isPrivate,
+		name: transformUriToName(repository.name),
+		uri: repository.name,
+	};
+};
+
 const githubRepositoryQuery: string = `
 	query getRepository($name: String!) {
 		repository(owner: "HenryBrown0", name: $name) {
@@ -63,19 +76,6 @@ const getGithubRepository = async (name: string): Promise<IRepository> => {
 	}
 
 	return transformGithubRepository(graphQLResponse.repository);
-};
-
-const transformGithubRepository = (repository: IRawGitHubRepository): IRepository => {
-	const backgroundColor = repository.primaryLanguage.color;
-	return {
-		backgroundColor,
-		description: repository.description,
-		gitHubUrl: repository.url,
-		isBackgroundDark: tinyColor(backgroundColor).isDark(),
-		isPrivate: repository.isPrivate,
-		name: transformUriToName(repository.name),
-		uri: repository.name,
-	};
 };
 
 export default getGithubRepository;
