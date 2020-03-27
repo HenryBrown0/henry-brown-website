@@ -79,6 +79,20 @@ const githubRepositoriesQuery = `
 	}
 `;
 
+const transformGitHubRepositories = (repository: IRawGitHubRepository): IRepository => (
+	{
+		image: repository.node.openGraphImageUrl,
+		isArchived: repository.node.isArchived,
+		issues: repository.node.issues.totalCount,
+		license: repository.node.licenseInfo.name,
+		link: `/project/${repository.node.name}`,
+		name: transformUriToName(repository.node.name),
+		pullRequests: repository.node.pullRequests.totalCount,
+		stars: repository.node.stargazers.totalCount,
+		updatedAt: new Date(repository.node.updatedAt).toDateString(),
+	}
+);
+
 const getGithubRepositories = async (limit: number): Promise<IRepository[]> => {
 	const graphQLClient = getGraphQLClient();
 
@@ -94,23 +108,9 @@ const getGithubRepositories = async (limit: number): Promise<IRepository[]> => {
 	}
 
 	const transformedRepositories = githubRepositories
-		.user.repositories.edges.map(transformGithubRepositories);
+		.user.repositories.edges.map(transformGitHubRepositories);
 
 	return transformedRepositories;
-};
-
-const transformGithubRepositories = (repository: IRawGitHubRepository): IRepository => {
-	return {
-		image: repository.node.openGraphImageUrl,
-		isArchived: repository.node.isArchived,
-		issues: repository.node.issues.totalCount,
-		license: repository.node.licenseInfo.name,
-		link: `/project/${repository.node.name}`,
-		name: transformUriToName(repository.node.name),
-		pullRequests: repository.node.pullRequests.totalCount,
-		stars: repository.node.stargazers.totalCount,
-		updatedAt: new Date(repository.node.updatedAt).toDateString(),
-	};
 };
 
 export default getGithubRepositories;

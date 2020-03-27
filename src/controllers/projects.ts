@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response } from 'express'; // eslint-disable-line
 import getGithubRepositories from '../models/gitHubRepositories';
 
 const projects = async (_: Request, response: Response) => {

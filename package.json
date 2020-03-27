@@ -11,7 +11,7 @@
     "build": "yarn run build-ts && yarn run build-styles",
     "build-ts": "parcel build src/server.ts --target node",
     "build-styles": "parcel build styles/* --out-dir dist/static/styles",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint 'src/**'"
   },
   "author": "HenryBrown0",
   "license": "MIT",
@@ -33,6 +33,11 @@
     "@types/markdown-it": "^0.0.9",
     "@types/squirrelly": "^7.1.0",
     "@types/tinycolor2": "^1.4.2",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
     "nodemon": "^2.0.2",
     "parcel": "^1.12.4",
     "sass": "^1.24.1",

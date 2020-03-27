@@ -12,18 +12,20 @@ const getReadMe = async (name: string): Promise<string> => {
 		https.get(uri, (response) => {
 			if (response.statusCode !== 200) {
 				response.resume();
-				reject('Non 200 status code from read me');
+				reject(new Error('Non 200 status code from read me'));
 			}
 
 			if (!/^text\/plain/.test(response.headers['content-type'])) {
 				response.resume();
-				reject('Incorrect file formate from read me');
+				reject(new Error('Incorrect file formate from read me'));
 			}
 
 			response.setEncoding('utf8');
 
 			let rawData = '';
-			response.on('data', (chunk) => rawData += chunk);
+			response.on('data', (chunk) => {
+				rawData += chunk;
+			});
 			response.on('end', () => resolve(renderHTML(rawData)));
 		}).on('error', (error) => {
 			reject(error);
