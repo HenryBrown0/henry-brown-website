@@ -5,13 +5,13 @@
   "main": "dist/server.js",
   "scripts": {
     "start": "yarn watch & NODE_ENV=development nodemon dist/server.js",
-    "watch": "yarn watch-ts & yarn watch-styles",
-    "watch-ts": "parcel watch src/server.ts --target node",
+    "watch": "tsc --watch & yarn watch-styles",
     "watch-styles": "parcel watch styles/* --out-dir dist/static/styles",
-    "build": "yarn run build-ts && yarn run build-styles",
-    "build-ts": "parcel build src/server.ts --target node",
+    "build": "tsc && yarn run build-styles",
     "build-styles": "parcel build styles/* --out-dir dist/static/styles",
-    "test": "eslint 'src/**'"
+    "test": "yarn test-types && yarn test-lint",
+    "test-types": "tsc --noEmit",
+    "test-lint": "eslint 'src/**'"
   },
   "author": "HenryBrown0",
   "license": "MIT",
@@ -20,6 +20,7 @@
     "node": "12"
   },
   "dependencies": {
+    "@sentry/node": "5.15.2",
     "express": "^4.17.1",
     "graphql-request": "^1.8.2",
     "helmet": "^3.21.2",
