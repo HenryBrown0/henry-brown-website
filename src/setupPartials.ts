@@ -14,14 +14,16 @@ const setPartial = async (partialName: string, partialLocation: string) => {
 };
 
 const loadPartials = async () => {
-	const dir: fs.Dirent[] = await fs.promises.opendir(partialDirectory);
+	const dir = await fs.promises.opendir(partialDirectory);
 
-	dir.forEach(async (dirent: fs.Dirent) => {
+	/* eslint-disable */
+	for await (const dirent of dir) {
 		const partialName = dirent.name.split('.')[0];
-		const partialLocation = path.join(__dirname, `../partials/${dirent.name}`);
+		const partialLocation = path.join(__dirname, '../partials/' + dirent.name);
 
 		await setPartial(partialName, partialLocation);
-	});
+	}
+	/* eslint-enable */
 };
 
 export default loadPartials;
