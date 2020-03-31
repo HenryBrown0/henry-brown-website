@@ -4,21 +4,12 @@ import transformUriToName from '../helpers/transformUriToName';
 interface IRawGitHubRepository {
 	node: {
 		name: string,
-		openGraphImageUrl: string,
-		stargazers: {
-			totalCount: number,
-		},
-		pullRequests: {
-			totalCount: number,
-		},
-		issues: {
-			totalCount: number,
-		},
-		updatedAt: string,
 		isArchived: boolean,
-		licenseInfo: {
-			name: string,
-		},
+		primaryLanguage: {
+			color: string;
+		}
+		description: string;
+		updatedAt: string;
 	};
 }
 
@@ -31,15 +22,12 @@ interface IRawGitHubResponse {
 }
 
 interface IRepository {
-	image: string;
 	isArchived: boolean;
-	issues: number;
-	license: string;
-	link: string;
 	name: string;
-	pullRequests: number;
-	stars: number;
 	updatedAt: string;
+	backgroundColor: string;
+	description: string;
+	link: string;
 }
 
 const githubRepositoriesQuery = `
@@ -57,20 +45,11 @@ const githubRepositoriesQuery = `
 				edges {
 					node {
 						name
-						stargazers {
-							totalCount
-						}
-						pullRequests(states: OPEN) {
-							totalCount
-						}
-						issues(states: OPEN) {
-							totalCount
-						}
+						description
 						updatedAt
-							openGraphImageUrl
-							isArchived
-							licenseInfo {
-							name
+						isArchived
+						primaryLanguage {
+							color
 						}
 					}
 				}
@@ -81,14 +60,11 @@ const githubRepositoriesQuery = `
 
 const transformGitHubRepositories = (repository: IRawGitHubRepository): IRepository => (
 	{
-		image: repository.node.openGraphImageUrl,
+		backgroundColor: repository.node.primaryLanguage.color,
+		description: repository.node.description,
 		isArchived: repository.node.isArchived,
-		issues: repository.node.issues.totalCount,
-		license: repository.node.licenseInfo.name,
 		link: `/project/${repository.node.name}`,
 		name: transformUriToName(repository.node.name),
-		pullRequests: repository.node.pullRequests.totalCount,
-		stars: repository.node.stargazers.totalCount,
 		updatedAt: new Date(repository.node.updatedAt).toDateString(),
 	}
 );

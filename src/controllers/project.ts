@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'; // eslint-disable-line
-import NodeCache from 'node-cache';
+import cache from '../helpers/cache';
 import getGitHubReadMe from '../models/gitHubReadMe';
 import getGithubRepository from '../models/gitHubRepository';
 
@@ -10,15 +10,16 @@ interface IFullRepository {
 	isBackgroundDark: boolean;
 	name: string;
 	project: string;
+	uri: string;
 }
-
-const repositoryCache = new NodeCache();
 
 const project = async (request: Request, response: Response) => {
 	const { projectName } = request.params;
 
-	let fullRepository: IFullRepository = repositoryCache.get(projectName);
+	response.setHeader('Cache-Control', 'max-age=300');
+	response.setHeader('Cache-Control', 's-maxage=900');
 
+	const fullRepository: IFullRepository = cache.get(projectName);
 	if (fullRepository) {
 		response.render('project', {
 			...fullRepository,
@@ -26,9 +27,6 @@ const project = async (request: Request, response: Response) => {
 		});
 		return;
 	}
-
-	response.setHeader('Cache-Control', 'max-age=300');
-	response.setHeader('Cache-Control', 's-maxage=900');
 
 	let repository;
 	let readMe: string;
@@ -70,19 +68,11 @@ const project = async (request: Request, response: Response) => {
 		return;
 	}
 
-	fullRepository = {
-		backgroundColor: repository.backgroundColor,
-		description: repository.description,
-		gitHubUrl: repository.gitHubUrl,
-		isBackgroundDark: repository.isBackgroundDark,
-		name: repository.name,
-		project: readMe,
-	};
-
-	repositoryCache.set(projectName, fullRepository, 600);
+	cache.set(repository.uri, { ...repository, project: readMe }, 7200);
 
 	response.render('project', {
-		...fullRepository,
+		...repository,
+		project: readMe,
 		year: new Date().getFullYear(),
 	});
 };
