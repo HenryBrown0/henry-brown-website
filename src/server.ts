@@ -22,7 +22,9 @@ app.use(sentry.Handlers.requestHandler());
 app.use(helmet());
 
 app.use('/', routes);
-app.use('/static', express.static(path.join(__dirname, 'static')));
+app.use('/static', express.static(path.join(__dirname, 'static'), {
+	maxAge: '14d',
+}));
 app.use('/', express.static(path.join(__dirname, '../public')));
 
 app.use(sentry.Handlers.errorHandler());

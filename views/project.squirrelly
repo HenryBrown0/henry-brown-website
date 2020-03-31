@@ -5,7 +5,6 @@
 		{{ if(options.description)}}
 			<meta name='description' content='{{description}}'>
 		{{/if}}
-		<script async src='https://kit.fontawesome.com/14b7efde74.js'></script>
 		{{if(options.name)}}
 			<title>HB | {{name}}</title>
 		{{#else}}
@@ -84,7 +83,13 @@
 						<div class='column'>
 							<a href='{{gitHubUrl}}' class='button' target='_blank'>
 								<span class='icon is-small'>
-									<i class='fab fa-github'></i>
+									<span class='icon'>
+										<img
+											src='/icons/github-brands.svg'
+											alt='GitHub'
+											class='image is-16x16'
+										/>
+									</span>
 								</span>
 								<span>View on GitHub</span>
 							</a>
