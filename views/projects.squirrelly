@@ -1,34 +1,177 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
 	<head>
-		{{include(head)/}}
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		{{ if(options.description)}}
+			<meta name='description' content='{{description}}'>
+		{{/if}}
+		{{if(options.pageTitle)}}
+			<title>HB | {{pageTitle}}</title>
+		{{#else}}
+			<title>HB | Projects</title>
+		{{/if}}
+		<link
+			rel='stylesheet'
+			href='https://cdn.jsdelivr.net/npm/bulma@0.8.1/css/bulma.min.css'
+		/>
+		<style>
+			body {
+				min-height: 100vh;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+			}
+		
+			.card {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+			}
+			.card-image {
+				height: 1rem;
+			}
+		</style>
 	</head>
-	<body class='layout-body'>
-		{{include(header)/}}
 
-		<section class='layout-section'>
-			{{if(options.projects.length)}}
-				{{foreach(options.projects)}}
-				<div class='project-item'>
-					<a href='{{@this.link}}' class='project-link'>
-						<div style='background-image: url({{@this.image}})' class='project-background'>
-							<div class='project-text-container'>
-								<h3 class='project-title'>
-									{{@this.name}} {{if(@this.isArchived)}}<sup><i class='fal fa-snowflake' aria-label='Archived'></i></sup>{{/if}}
-								</h3>
-								<p class='project-para'>Stars: {{@this.stars}} | PR: {{@this.pullRequests}} | Issues: {{@this.issues}}</p>
-								<p class='project-para'><small>{{@this.license}}</small></p>
-								<p class='project-para'><small>Last updated: {{@this.updatedAt}}</small></p>
-							</div>
-						</div>
+	<body class='has-navbar-fixed-top'>
+		<nav
+			class='navbar is-fixed-top'
+			role='navigation'
+			aria-label='main navigation'
+		>
+			<div class='navbar-brand'>
+				<a class='navbar-item' href='/'>
+					HB
+				</a>
+		
+				<a
+					id='navigation-bar-burger-button'
+					role='button'
+					class='navbar-burger burger'
+					aria-label='menu'
+					aria-expanded='false'
+					data-target='navigation-bar-content'
+				>
+					<span aria-hidden='true'></span>
+					<span aria-hidden='true'></span>
+					<span aria-hidden='true'></span>
+				</a>
+			</div>
+		
+			<div id='navigation-bar-content' class='navbar-menu'>
+				<div class='navbar-start'>
+					<a href='/blog' class='navbar-item'>
+						Blog
+					</a>
+		
+					<a href='/project' class='navbar-item is-active'>
+						Projects
 					</a>
 				</div>
-				{{/foreach}}
-			{{#else}}
-				No projects found
-			{{/if}}
+			</div>
+		</nav>
+
+		<section class='hero is-dark'>
+			<div class='hero-body'>
+				<div class='container'>
+					<h1 class='title is-3'>
+						{{if(options.pageTitle)}}
+							{{pageTitle}}
+						{{#else}}
+							Projects
+						{{/if}}
+					</h1>
+					{{if(options.description)}}
+						<h2 class='subtitle is-5'>{{description}}</h2>
+					{{/if}}
+				</div>
+			</div>
 		</section>
 
+		{{if(options.projects.length)}}
+			<section class='section'>
+				<div class='container'>
+					<div class='columns is-mobile is-multiline'>
+						{{foreach(options.projects)}}
+							<div
+								class='column is-12-mobile is-6-tablet is-4-desktop is-4-widescreen is-3-fullhd'
+							>
+								<div class='card'>
+									<div>
+										<div
+											class='card-image'
+											style='background-color: {{@this.backgroundColor}};'
+										></div>
+										<div class='card-content'>
+											<h3 class='title is-3'>
+												{{@this.name}}
+												{{if(@this.isArchived)}}
+													<sup>
+														<span class='icon is-small'>
+															<img
+																src='/icons/snowflake-light.svg'
+																alt='Archived'
+																class='image is-16x16'
+															/>
+														</span>
+													</sup>
+												{{/if}}
+											</h3>
+											<h4 class='subtitle is-5'>
+												{{if(@this.description)}}{{@this.description}}{{/if}}
+											</h4>
+										</div>
+									</div>
+									<div>
+										<p class='card-footer-item'>
+											<small>Last updated: {{@this.updatedAt}}</small>
+										</p>
+										<footer class='card-footer'>
+											<a href='{{@this.link}}' class='card-footer-item'>
+												<span>
+													Read more
+												</span>
+											</a>
+										</footer>
+									</div>
+								</div>
+							</div>
+						{{/foreach}}
+					</div>
+				</div>
+			</section>
+		{{#else}}
+			<section class='hero'>
+				<div class='hero-body'>
+					<div class='container'>
+						<h1 class='title is-3'>No projects found</h1>
+					</div>
+				</div>
+			</section>
+		{{/if}}
+
 		{{include(footer)/}}
+
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const navBarBurgerBtn = document.getElementById(
+					'navigation-bar-burger-button'
+				);
+				const navBarContent = document.getElementById(
+					'navigation-bar-content'
+				);
+
+				navBarBurgerBtn.addEventListener('click', () => {
+					navBarBurgerBtn.classList.toggle('is-active');
+					navBarContent.classList.toggle('is-active');
+
+					const isOpen = JSON.parse(
+						navBarBurgerBtn.getAttribute('aria-expanded')
+					);
+					navBarBurgerBtn.setAttribute('aria-expanded', !isOpen);
+				});
+			});
+		</script>
 	</body>
 </html>
