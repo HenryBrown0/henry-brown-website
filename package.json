@@ -4,7 +4,7 @@
   "description": "Personal website hosted at https://henrybrown0.com",
   "main": "dist/server.js",
   "scripts": {
-    "start": "yarn watch & NODE_ENV=development nodemon dist/server.js",
+    "start": "yarn watch & NODE_ENV=development nodemon dist/server.js -e .squirrelly",
     "watch": "tsc --watch & yarn watch-styles",
     "watch-styles": "parcel watch styles/* --out-dir dist/static/styles",
     "build": "tsc && yarn run build-styles",
