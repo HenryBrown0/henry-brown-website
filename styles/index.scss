@@ -1,232 +1,108 @@
-@charset "utf-8";
+@charset 'utf-8';
 
-/* Layout Main */
-body {
+// variables
+$gitHubColor: #333;
+$twitterColor: #1da1f2;
+$telegramColor: #0088cc;
+
+$blogImage: '/image/cow-progressive.jpg';
+$projectImage: '/image/fly-progressive.jpg';
+$serviceImage: '/image/bird-progressive.jpg';
+
+// Bulma
+// utils
+@import '../node_modules/bulma/sass/utilities/initial-variables.sass';
+@import '../node_modules/bulma/sass/utilities/functions.sass';
+@import '../node_modules/bulma/sass/utilities/derived-variables.sass';
+// @import '../node_modules/bulma/sass/utilities/animations.sass';
+@import '../node_modules/bulma/sass/utilities/mixins.sass';
+@import '../node_modules/bulma/sass/utilities/controls.sass';
+// base
+@import '../node_modules/bulma/sass/base/generic.sass';
+@import '../node_modules/bulma/sass/base/helpers.sass';
+@import '../node_modules/bulma/sass/base/minireset.sass';
+// components
+// @import '../node_modules/bulma/sass/components/breadcrumb.sass';
+@import '../node_modules/bulma/sass/components/card.sass';
+// @import '../node_modules/bulma/sass/components/dropdown.sass';
+// @import '../node_modules/bulma/sass/components/level.sass';
+// @import '../node_modules/bulma/sass/components/list.sass';
+// @import '../node_modules/bulma/sass/components/media.sass';
+// @import '../node_modules/bulma/sass/components/menu.sass';
+// @import '../node_modules/bulma/sass/components/message.sass';
+// @import '../node_modules/bulma/sass/components/modal.sass';
+@import '../node_modules/bulma/sass/components/navbar.sass';
+// @import '../node_modules/bulma/sass/components/pagination.sass';
+// @import '../node_modules/bulma/sass/components/panel.sass';
+// @import '../node_modules/bulma/sass/components/tabs.sass';
+// elements
+@import '../node_modules/bulma/sass/elements/box.sass';
+@import '../node_modules/bulma/sass/elements/button.sass';
+@import '../node_modules/bulma/sass/elements/container.sass';
+@import '../node_modules/bulma/sass/elements/content.sass';
+// @import '../node_modules/bulma/sass/elements/form.sass';
+@import '../node_modules/bulma/sass/elements/icon.sass';
+// @import '../node_modules/bulma/sass/elements/image.sass';
+// @import '../node_modules/bulma/sass/elements/notification.sass';
+// @import '../node_modules/bulma/sass/elements/other.sass';
+// @import '../node_modules/bulma/sass/elements/progress.sass';
+// @import '../node_modules/bulma/sass/elements/table.sass';
+// @import '../node_modules/bulma/sass/elements/tag.sass';
+@import '../node_modules/bulma/sass/elements/title.sass';
+// form
+// @import '../node_modules/bulma/sass/form/checkbox-radio.sass';
+// @import '../node_modules/bulma/sass/form/file.sass';
+// @import '../node_modules/bulma/sass/form/input-textarea.sass';
+// @import '../node_modules/bulma/sass/form/select.sass';
+// @import '../node_modules/bulma/sass/form/shared.sass';
+// @import '../node_modules/bulma/sass/form/tools.sass';
+// layout
+@import '../node_modules/bulma/sass/layout/footer.sass';
+@import '../node_modules/bulma/sass/layout/hero.sass';
+@import '../node_modules/bulma/sass/layout/section.sass';
+// grid
+@import '../node_modules/bulma/sass/grid/columns.sass';
+@import '../node_modules/bulma/sass/grid/tiles.sass';
+
+// custom styles
+.full-height {
 	min-height: 100vh;
-	display: flex;
 	justify-content: space-between;
+	flex-direction: column;
 }
-.layout-body {
-	padding: 0;
-	margin: 0;
-	text-align: center;
+.tile-background {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.tile-github {
+	background-color: $gitHubColor;
+}
+.tile-twitter {
+	background-color: $twitterColor;
+}
+.tile-telegram {
+	background-color: $telegramColor;
+}
+.flex-centre {
+	justify-content: center;
+	align-items: center;
+}
+.tile-blog {
+	background-image: url($blogImage);
+}
+.tile-project {
+	background-image: url($projectImage);
+}
+.tile-service {
+	background-image: url($serviceImage);
+}
+.card {
+	height: 100%;
 	display: flex;
 	flex-direction: column;
-	font-size: 1em;
-	font-family: monospace;
+	justify-content: space-between;
 }
-.layout-section {
-	margin: 0.5rem 0;
-}
-.layout-flex-center {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-.layout-wide-tile {
-	flex: 12;
-}
-.layout-clean-link {
-	text-decoration: none;
-	color: initial;
-}
-/* Header */
-.header {
-	padding-top: 0.5rem;
-	margin: 0.5rem 0;
-}
-.header-link {
-	text-decoration: none;
-	color: initial;
-}
-.header-h2 {
-	font-size: 1.2em;
-	margin: 0;
-}
-/* Icons */
-.icon {
-	padding: 0.2rem;
-	margin: 0.2rem;
-	font-size: 1.2em;
-}
-.fa-heart {
-	color: #c23616;
-}
-.fa-sun {
-	color: #fbc531;
-}
-.fa-raspberry-pi {
-	color: #c7053d;
-}
-/* Footer */
-.footer {
-	padding: 1rem;
-}
-/* Index */
-.index-white {
-	color: white;
-}
-.index-github {
-	background-color: #333;
-}
-.index-twitter {
-	background-color: #1da1f2;
-}
-.index-telegram {
-	background-color: #0088cc;
-}
-.index-square {
-	flex: 0;
-	display: none;
-}
-.index-rectangle {
-	flex: 12;
-}
-.index-blog-post {
-	flex: 12;
-}
-.index-social-row a {
-	text-decoration: none;
-	color: black;
-}
-.index-most-recent {
-	margin: 1.5rem 0;
-}
-.index-text-container {
-	background-color: white;
-}
-
-.index-row {
-	display: flex;
-	flex-direction: row;
-	height: 30vh;
-}
-.index-row a {
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-.index-row h3 {
-	padding: 1rem;
-	margin: 0rem;
-	color: black;
-}
-.index-row a {
-	text-decoration: none;
-}
-/* Card */
-.card {
-	min-height: 30vh;
-}
-.card-background {
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-.card-title {
-	margin: 0 0 0.5rem 0;
-}
-.card-text-container {
-	margin: 0.5rem 0;
-	background-color: white;
-	padding: 0.75rem;
-}
-.card-paragraph {
-	margin: 0.5rem 0;
-}
-/* Project */
-.project-item {
-	min-height: 30vh;
-}
-.project-title {
-	margin: 0 0 0.5rem 0;
-	text-transform: capitalize;
-}
-.project-background {
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	align-items: center;
-	display: flex;
-	justify-content: center;
-	min-height: 28vh;
-}
-.project-text-container {
-	margin: 0.5rem 0;
-	background-color: white;
-	padding: 0.75rem;
-}
-.project-para {
-	margin: 0.5rem 0;
-}
-.project-link {
-	text-decoration: none;
-	color: initial;
-}
-.project-code {
-	display:flex;
-	height: 2vh;
-}
-/* Buttons */
-.btn-container {
-	display: flex;
-	flex-direction: row;
-	height: 6rem;
-}
-.btn-read-more {
-	font-size: 1em;
-	background-color: #2f3640;
-	color: #dcdde1;
-	padding: 1rem 1.2rem;
-	border-radius: 0.1rem;
-	text-decoration: none;
-}
-.btn-read-more:hover {
-	background-color: #353b48;
-}
-/* Responsive elements */
-@media (min-width:320px)  {
-	/* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
-}
-@media (min-width:480px)  {
-	/* smartphones, Android phones, landscape iPhone */
-}
-@media (min-width:600px)  {
-	/*
-		portrait tablets, portrait iPad, e-readers (Nook/Kindle),
-		landscape 800x480 phones (Android)
-	*/
-	.header-h2 {
-		margin: 0.8rem;
-	}
-	.layout-section {
-		margin: 0.75rem 0;
-	}
-	.index-rectangle {
-		flex: 8;
-	}
-	.index-square {
-		flex: 4;
-		display: flex;
-	}
-	.index-social-row {
-		display: none;
-	}
-}
-@media (min-width:801px)  {
-	/* tablet, landscape iPad, lo-res laptops ands desktops */
-	.layout-section {
-		width: 80vw;
-		margin: 0 10vw;
-	}
-}
-@media (min-width:1025px) {
-	/* big landscape tablets, laptops, and desktops */
-}
-@media (min-width:1281px) {
-	/* hi-res laptops and desktops */
-	.layout-section {
-		width: 60vw;
-		margin: 0 20vw;
-	}
+.card-image {
+	height: 1rem;
 }
