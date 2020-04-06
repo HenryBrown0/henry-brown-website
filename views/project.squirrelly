@@ -10,101 +10,98 @@
 		{{#else}}
 			<title>HB | No project found</title>
 		{{/if}}
-		
-		<link
-			rel='stylesheet'
-			href='https://cdn.jsdelivr.net/npm/bulma@0.8.1/css/bulma.min.css'
-		/>
+		<link rel='stylesheet' href='/static/styles/index.css' />
 	</head>
-	<body class='has-navbar-fixed-top'>
-
-		<nav
-			class='navbar is-fixed-top'
-			role='navigation'
-			aria-label='main navigation'
-		>
-			<div class='navbar-brand'>
-				<a class='navbar-item' href='/'>
-					HB
-				</a>
-		
-				<a
-					id='navigation-bar-burger-button'
-					role='button'
-					class='navbar-burger burger'
-					aria-label='menu'
-					aria-expanded='false'
-					data-target='navigation-bar-content'
-				>
-					<span aria-hidden='true'></span>
-					<span aria-hidden='true'></span>
-					<span aria-hidden='true'></span>
-				</a>
-			</div>
-		
-			<div id='navigation-bar-content' class='navbar-menu'>
-				<div class='navbar-start'>
-					<a href='/blog' class='navbar-item'>
-						Blog
+	<body class='has-navbar-fixed-top is-flex full-height'>
+		<div>
+			<nav
+				class='navbar is-fixed-top'
+				role='navigation'
+				aria-label='main navigation'
+			>
+				<div class='navbar-brand'>
+					<a class='navbar-item' href='/'>
+						HB
 					</a>
-		
-					<a href='/project' class='navbar-item'>
-						Projects
+			
+					<a
+						id='navigation-bar-burger-button'
+						role='button'
+						class='navbar-burger burger'
+						aria-label='menu'
+						aria-expanded='false'
+						data-target='navigation-bar-content'
+					>
+						<span aria-hidden='true'></span>
+						<span aria-hidden='true'></span>
+						<span aria-hidden='true'></span>
 					</a>
 				</div>
-			</div>
-		</nav>
+			
+				<div id='navigation-bar-content' class='navbar-menu'>
+					<div class='navbar-start'>
+						<a href='/blog' class='navbar-item'>
+							Blog
+						</a>
+			
+						<a href='/project' class='navbar-item'>
+							Projects
+						</a>
+					</div>
+				</div>
+			</nav>
 
-		
-		<section
-			class='hero {{if(options.isBackgroundDark)}}is-dark{{/if}}'
-			style='background-color: {{backgroundColor}};'
-		>
-			<div class='hero-body'>
-				<div class='container'>
-					<h1 class='title is-3'>
-						{{if(options.name)}}
-							{{name}}
-						{{#else}}
-							No project found
+			
+			<section
+				class='hero {{if(options.isBackgroundDark)}}is-dark{{/if}}'
+				style='background-color: {{backgroundColor}};'
+			>
+				<div class='hero-body'>
+					<div class='container'>
+						<h1 class='title is-3'>
+							{{if(options.name)}}
+								{{name}}
+							{{#else}}
+								No project found
+							{{/if}}
+						</h1>
+						{{if(options.description)}}
+							<h2 class='subtitle is-5'>{{description}}</h2>
 						{{/if}}
-					</h1>
-					{{if(options.description)}}
-						<h2 class='subtitle is-5'>{{description}}</h2>
-					{{/if}}
+					</div>
 				</div>
-			</div>
-		</section>
+			</section>
 
-		<section class='section'>
-			<main class='container'>
-				{{if(options.gitHubUrl)}}
-					<div class='columns'>
-						<div class='column'>
-							<a href='{{gitHubUrl}}' class='button' target='_blank'>
-								<span class='icon is-small'>
-									<span class='icon'>
-										<img
-											src='/icons/github-brands.svg'
-											alt='GitHub'
-											class='image is-16x16'
-										/>
+			<section class='section'>
+				<main class='container'>
+					{{if(options.gitHubUrl)}}
+						<div class='columns'>
+							<div class='column'>
+								<a href='{{gitHubUrl}}' class='button' target='_blank'>
+									<span class='icon is-small'>
+										<span class='icon'>
+											<img
+												src='/icons/github-brands.svg'
+												alt='GitHub'
+												class='image is-16x16'
+											/>
+										</span>
 									</span>
-								</span>
-								<span>View on GitHub</span>
-							</a>
+									<span>View on GitHub</span>
+								</a>
+							</div>
 						</div>
-					</div>
-				{{/if}}
-				{{if(options.project)}}
-					<div class='columns'>
-						<div class='column'>
-							<div class='content'>{{project | safe}}</div>
+					{{/if}}
+					{{if(options.project)}}
+						<div class='columns'>
+							<div class='column'>
+								<div class='content'>{{project | safe}}</div>
+							</div>
 						</div>
-					</div>
-				{{/if}}
-			</main>
-		</section>
+					{{/if}}
+				</main>
+			</section>
+		</div>
 
 		{{include(footer)/}}
 

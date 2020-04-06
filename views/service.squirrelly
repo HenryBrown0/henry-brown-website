@@ -7,10 +7,7 @@
 			<meta name='description' content='{{description}}'>
 		{{/if}}
 		<title>HB | Services</title>
-		<link
-			rel='stylesheet'
-			href='https://cdn.jsdelivr.net/npm/bulma@0.8.1/css/bulma.min.css'
-		/>
+		<link rel='stylesheet' href='/static/styles/index.css' />
 		<link
 			rel='apple-touch-icon'
 			sizes='180x180'
@@ -29,17 +26,9 @@
 			href='/icons/favicon/favicon-16x16.png'
 		>
 		<link rel='manifest' href='/site.webmanifest'>
-		<style>
-			.full-height {
-				display: flex;
-				min-height: 100vh;
-				justify-content: space-between;
-				flex-direction: column;
-			}
-		</style>
 	</head>
 
-	<body class='has-navbar-fixed-top full-height'>
+	<body class='has-navbar-fixed-top is-flex full-height'>
 		<div>
 			<nav
 				class='navbar is-fixed-top'
