@@ -5,10 +5,12 @@
   "main": "dist/server.js",
   "scripts": {
     "start": "yarn watch & NODE_ENV=development nodemon dist/server.js -e .squirrelly",
-    "watch": "tsc --watch & yarn watch-styles",
-    "watch-styles": "parcel watch styles/* --out-dir dist/static/styles",
-    "build": "tsc && yarn run build-styles",
-    "build-styles": "parcel build styles/* --out-dir dist/static/styles",
+    "watch": "concurrently \"yarn:watch-*\"",
+    "watch-ts": "tsc --watch",
+    "watch-sass": "yarn build-sass --watch",
+    "build": "yarn build-ts && yarn build-sass",
+    "build-ts": "tsc",
+    "build-sass": "node-sass --omit-source-map-url --error-bell --output-style compressed styles/index.scss dist/static/styles/index.css",
     "test": "yarn test-types && yarn test-lint",
     "test-types": "tsc --noEmit",
     "test-lint": "eslint 'src/**'"
@@ -37,12 +39,13 @@
     "@types/tinycolor2": "^1.4.2",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
+    "bulma": "^0.8.1",
+    "concurrently": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.1",
+    "node-sass": "^4.13.1",
     "nodemon": "^2.0.2",
-    "parcel": "^1.12.4",
-    "sass": "^1.24.1",
     "typescript": "^3.7.4"
   }
 }

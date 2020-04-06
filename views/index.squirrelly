@@ -7,47 +7,9 @@
 			<meta name='description' content='{{description}}'>
 		{{/if}}
 		<title>HB | Home</title>
-		<link
-			rel='stylesheet'
-			href='https://cdn.jsdelivr.net/npm/bulma@0.8.1/css/bulma.min.css'
-		/>
-		<style>
-			.full-height {
-				display: flex;
-				min-height: 100vh;
-				justify-content: space-between;
-				flex-direction: column;
-			}
-			.tile-background {
-				background-position: center;
-				background-repeat: no-repeat;
-				background-size: cover;
-			}
-			.tile-github {
-				background-color: #333;
-			}
-			.tile-twitter {
-				background-color: #1da1f2;
-			}
-			.tile-telegram {
-				background-color: #0088cc;
-			}
-			.tile-align-centre {
-				justify-content: center;
-				align-items: center;
-			}
-			#tile-blog {
-				background-image: url('/image/cow-progressive.jpg');
-			}
-			#tile-project {
-				background-image: url('/image/fly-progressive.jpg');
-			}
-			#tile-service {
-				background-image: url('/image/bird-progressive.jpg');
-			}
-		</style>
+		<link rel='stylesheet' href='/static/styles/index.css' />
 	</head>
-	<body class='full-height'>
+	<body class='full-height is-flex'>
 		<div>
 			<header class='hero is-medium is-dark is-bold'>
 				<div class='hero-body'>
@@ -108,7 +70,7 @@
 							<a
 								href='https://twitter.com/Henry_Brown_0'
 								target='_blank'
-								class='tile tile-twitter is-child box is-radiusless is-flex tile-align-centre'
+								class='tile tile-twitter is-child box is-radiusless is-flex flex-centre'
 							>
 								<span class='icon is-small'>
 									<img
@@ -121,9 +83,8 @@
 						</div>
 						<div class='tile is-8 is-parent'>
 							<a
-								id='tile-blog'
 								href='/blog'
-								class='tile is-child box has-background-grey-lighter tile-background is-radiusless'
+								class='tile is-child box has-background-grey-lighter tile-background is-radiusless tile-blog'
 							>
 								<div class='section has-text-centered'>
 									<div class='box is-inline-block is-radiusless'>
@@ -137,9 +98,8 @@
 					<div class='tile is-ancestor'>
 						<div class='tile is-8 is-parent'>
 							<a
-								id='tile-project'
 								href='/project'
-								class='tile is-child box has-background-grey-lighter tile-background is-radiusless'
+								class='tile is-child box has-background-grey-lighter tile-background is-radiusless tile-project'
 							>
 								<div class='section has-text-centered'>
 									<div class='box is-inline-block is-radiusless'>
@@ -152,7 +112,7 @@
 							<a
 								href='https://t.me/HenryBrown0'
 								target='_blank'
-								class='tile tile-telegram is-child box is-radiusless is-flex tile-align-centre'
+								class='tile tile-telegram is-child box is-radiusless is-flex flex-centre'
 							>
 								<span class='icon is-small'>
 									<img
@@ -170,7 +130,7 @@
 							<a
 								href='https://github.com/HenryBrown0'
 								target='_blank'
-								class='tile tile-github is-child box is-radiusless is-flex tile-align-centre'
+								class='tile tile-github is-child box is-radiusless is-flex flex-centre'
 							>
 								<span class='icon is-small'>
 									<img
@@ -183,9 +143,8 @@
 						</div>
 						<div class='tile is-8 is-parent'>
 							<a
-								id='tile-service'
 								href='/service'
-								class='tile is-child box has-background-grey-lighter tile-background is-radiusless'
+								class='tile is-child box has-background-grey-lighter tile-background is-radiusless tile-service'
 							>
 								<div class='section has-text-centered'>
 									<div class='box is-inline-block is-radiusless'>
