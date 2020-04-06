@@ -1,15 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
 	<head>
-		{{include(head)/}}
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<meta charset='utf-8'>
+		{{ if(options.description)}}
+			<meta name='description' content='{{description}}'>
+		{{/if}}
+		<title>HB | Services</title>
+		<link
+			rel='stylesheet'
+			href='https://cdn.jsdelivr.net/npm/bulma@0.8.1/css/bulma.min.css'
+		/>
+		<link
+			rel='apple-touch-icon'
+			sizes='180x180'
+			href='/icons/favicon/apple-touch-icon.png'
+		>
+		<link
+			rel='icon'
+			type='image/png'
+			sizes='32x32'
+			href='/icons/favicon/favicon-32x32.png'
+		>
+		<link
+			rel='icon'
+			type='image/png'
+			sizes='16x16'
+			href='/icons/favicon/favicon-16x16.png'
+		>
+		<link rel='manifest' href='/site.webmanifest'>
+		<style>
+			.full-height {
+				display: flex;
+				min-height: 100vh;
+				justify-content: space-between;
+				flex-direction: column;
+			}
+		</style>
 	</head>
-	<body class='layout-body'>
-		{{include(header)/}}
 
-		<section class='layout-section'>
-			Coming soon...
-		</section>
+	<body class='has-navbar-fixed-top full-height'>
+		<div>
+			<nav
+				class='navbar is-fixed-top'
+				role='navigation'
+				aria-label='main navigation'
+			>
+				<div class='navbar-brand'>
+					<a class='navbar-item' href='/'>
+						HB
+					</a>
+
+					<a
+						id='navigation-bar-burger-button'
+						role='button'
+						class='navbar-burger burger'
+						aria-label='menu'
+						aria-expanded='false'
+						data-target='navigation-bar-content'
+					>
+						<span aria-hidden='true'></span>
+						<span aria-hidden='true'></span>
+						<span aria-hidden='true'></span>
+					</a>
+				</div>
+
+				<div id='navigation-bar-content' class='navbar-menu'>
+					<div class='navbar-start'>
+						<a href='/blog' class='navbar-item'>
+							Blog
+						</a>
+
+						<a href='/project' class='navbar-item'>
+							Projects
+						</a>
+					</div>
+				</div>
+			</nav>
+
+			<header class='hero is-dark'>
+				<div class='hero-body'>
+					<div class='container'>
+						<h1 class='title is-3'>Services</h1>
+						{{if(options.description)}}
+							<h2 class='subtitle is-5'>{{description}}</h2>
+						{{/if}}
+					</div>
+				</div>
+			</header>
+
+			<main class='section'>
+				<div class='container'>
+					<p>Coming soon...</p>
+				</div>
+			</main>
+		</div>
 
 		{{include(footer)/}}
+
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const navBarBurgerBtn = document.getElementById(
+					'navigation-bar-burger-button'
+				);
+				const navBarContent = document.getElementById(
+					'navigation-bar-content'
+				);
+
+				navBarBurgerBtn.addEventListener('click', () => {
+					navBarBurgerBtn.classList.toggle('is-active');
+					navBarContent.classList.toggle('is-active');
+
+					const isOpen = JSON.parse(
+						navBarBurgerBtn.getAttribute('aria-expanded')
+					);
+					navBarBurgerBtn.setAttribute('aria-expanded', !isOpen);
+				});
+			});
+		</script>
 	</body>
 </html>
