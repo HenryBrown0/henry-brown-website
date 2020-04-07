@@ -1,3 +1,26 @@
 <footer class='footer'>
-	<p>Build and hosted by Henry Brown © {{year}}</p>
+	<div class='content'>
+		<p>Build and hosted by Henry Brown</p>
+
+		<p>
+			The <a href='https://github.com/HenryBrown0/henry-brown-website' target='_blank'>source code</a> is licensed <a href='https://github.com/HenryBrown0/henry-brown-website/blob/staging/LICENSE' target='_blank'>MIT</a>.
+			<br />
+			The website content is licensed <a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/' target='_blank'>CC BY-SA 4.0</a>.
+		</p>
+		<p>
+			<a
+				rel='license'
+				href='https://creativecommons.org/licenses/by-sa/4.0/'
+				target='_blank'
+			>
+				<img
+					alt='Creative Commons Licence'
+					src='https://i.creativecommons.org/l/by-sa/4.0/88x31.png'
+					loading='lazy'
+					width='88'
+					height='31'
+				/>
+			</a>
+		</p>
+	</div>
 </footer>
