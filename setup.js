@@ -1,8 +1,12 @@
 const fs = require('fs');
 const path = require('path');
-const pg = require('pg');
+const { Pool } = require('pg');
 
-const pool = new pg.Pool();
+const { DATABASE_URL } = process.env;
+
+const pool = new Pool({
+	host: DATABASE_URL || 'localhost',
+});
 const schemaPath = path.join(__dirname, 'schema.sql');
 
 const runQuery = (statements) => {

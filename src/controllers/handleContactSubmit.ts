@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express'; // eslint-disable-line
-import { Pool } from 'pg';
+import databaseQuery from '../lib/database';
 import { v4 as uuidv4 } from 'uuid';
 import { validationResult } from 'express-validator';
 
@@ -22,8 +22,6 @@ const navigationBarItems: INavigationBarItem[] = [
 		isActive: false,
 	},
 ];
-
-const pool = new Pool();
 
 const handleContactSubmit: RequestHandler = async (request, response) => {
 	const validationErrors = validationResult(request);
@@ -65,7 +63,7 @@ const handleContactSubmit: RequestHandler = async (request, response) => {
 
 	let alreadyExist = true;
 	try {
-		const queryResult = await pool.query(
+		const queryResult = await databaseQuery(
 			'SELECT nonce FROM user_query WHERE nonce = $1',
 			[nonce],
 		);
@@ -92,7 +90,7 @@ const handleContactSubmit: RequestHandler = async (request, response) => {
 	}
 
 	try {
-		await pool.query(
+		await databaseQuery(
 			'INSERT INTO user_query(id, nonce, name, email, phone_number, web_development, web_hosting, message) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
 			[
 				uuidv4(),
