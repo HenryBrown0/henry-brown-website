@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express'; // eslint-disable-line
-import databaseQuery from '../lib/database';
 import { v4 as uuidv4 } from 'uuid';
 import { validationResult } from 'express-validator';
+import databaseQuery from '../lib/database';
 
 const navigationBarItems: INavigationBarItem[] = [
 	{
