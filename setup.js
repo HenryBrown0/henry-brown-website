@@ -5,7 +5,8 @@ const { Pool } = require('pg');
 const { DATABASE_URL } = process.env;
 
 const pool = new Pool({
-	host: DATABASE_URL || 'localhost',
+	connectionString: DATABASE_URL,
+	ssl: Boolean(DATABASE_URL),
 });
 const schemaPath = path.join(__dirname, 'schema.sql');
 

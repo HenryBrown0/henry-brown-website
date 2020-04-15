@@ -3,7 +3,8 @@ import { Pool, QueryResult } from 'pg'; // eslint-disable-line
 const { DATABASE_URL } = process.env;
 
 const pool = new Pool({
-	host: DATABASE_URL || 'localhost',
+	connectionString: DATABASE_URL,
+	ssl: Boolean(DATABASE_URL),
 });
 
 const query = async (
