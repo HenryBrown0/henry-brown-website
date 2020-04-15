@@ -11,7 +11,7 @@
     "build": "yarn build-ts && yarn build-sass",
     "build-ts": "tsc",
     "build-sass": "node-sass --omit-source-map-url --error-bell --output-style compressed styles/index.scss dist/static/styles/index.css",
-    "postinstall": "node setup.js",
+    "setup-db": "node ./setup.js",
     "test": "yarn test-types && yarn test-lint",
     "test-types": "tsc --noEmit",
     "test-lint": "eslint 'src/**'"

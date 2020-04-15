@@ -1,4 +1,4 @@
-# Henry Brown Server
+# Henry Brown Website
 
 Server for my personal website
 
@@ -14,6 +14,7 @@ You'll need to install the following software:
 ```
 Node.js v12.13.0
 Yarn v1.19.1
+PostgreSQL v12
 ```
 
 ### Installing
@@ -25,6 +26,12 @@ Once the repo has been cloned install the dependencies
 
 ```
 yarn install
+```
+
+Setup the database using the setup command
+
+```
+yarn setup
 ```
 
 Start the project locally on port 3000
