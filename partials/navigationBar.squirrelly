@@ -1,0 +1,34 @@
+<nav class='navbar is-sticky-top' role='navigation' aria-label='main navigation'>
+	<div class='navbar-brand'>
+		<a href='/' class='navbar-item'>
+			HB
+		</a>
+
+		<a
+			id='navigation-bar-burger-button' 
+			ole='button' class='navbar-burger burger'
+			aria-label='menu'
+			aria-expanded='false'
+			data-target='navigation-bar-content'
+		>
+			<span aria-hidden='true'></span>
+			<span aria-hidden='true'></span>
+			<span aria-hidden='true'></span>
+		</a>
+	</div>
+
+	<div id='navigation-bar-content' class='navbar-menu'>
+		<div class='navbar-start'>
+			{{if(options.navigationBarItems && options.navigationBarItems.length)}}
+				{{foreach(options.navigationBarItems)}}
+					<a
+						href='/{{@this.href}}'
+						class='navbar-item {{if(@this.isActive)}}is-active{{/if}}'
+					>
+						{{@this.name}}
+					</a>
+				{{/foreach}}
+			{{/if}}
+		</div>
+	</div>
+</nav>

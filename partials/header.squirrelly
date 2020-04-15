@@ -1,7 +1,10 @@
-<header class='header'>
-	<h1><a class='header-link' href='/'>Henry Brown</a></h1>
-	<h2 class='header-h2'>{{pageTitle}}</h2>
-	{{if(options.description)}}
-		<p>{{description}}</p>
-	{{/if}}
+<header class='hero {{if(options.danger)}}is-danger{{#else}}is-dark{{/if}}'>
+	<div class='hero-body'>
+		<div class='container'>
+			<h1 class='title is-3'>{{pageTitle}}</h1>
+			{{if(options.description)}}
+			<h2 class='subtitle is-5'>{{description}}</h2>
+			{{/if}}
+		</div>
+	</div>
 </header>

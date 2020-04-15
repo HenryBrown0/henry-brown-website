@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+	{{include(head)/}}
+</head>
+
+<body class='is-flex full-height'>
+	<div>
+		{{include(navigationBar)/}}
+
+		{{include(header)/}}
+
+		<main class='section'>
+			<div class='container'>
+				{{include(contactForm)/}}
+			</div>
+		</main>
+	</div>
+
+	{{include(footer)/}}
+</body>
+
+</html>

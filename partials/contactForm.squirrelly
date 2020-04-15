@@ -1,0 +1,164 @@
+<form method='POST' action='/contact'>
+	<div class='field is-horizontal'>
+		<div class='field-label is-normal'>
+			<label for='name' class='label'>Name</label>
+		</div>
+		<div class='field-body'>
+			<div class='field is-expanded'>
+				<div class='field'>
+					<div class='control'>
+						<input
+							id='name'
+							name='name'
+							type='text'
+							value='{{if(options.value.name)}}{{value.name}}{{/if}}'
+							class='input{{if(options.error.name)}} is-danger{{/if}}'
+						/>
+					</div>
+				</div>
+				{{if(options.error.name)}}
+					{{foreach(options.error.name)}}
+						<p class='help is-danger'>{{@this}}</p>
+					{{/foreach}}
+				{{/if}}
+			</div>
+		</div>
+	</div>
+
+	<div class='field is-horizontal'>
+		<div class='field-label is-normal'>
+			<label for='email' class='label'>Email</label>
+		</div>
+		<div class='field-body'>
+			<div class='field is-expanded'>
+				<div class='field'>
+					<div class='control'>
+						<input
+							id='email'
+							name='email'
+							type='email'
+							value='{{if(options.value.email)}}{{value.email}}{{/if}}'
+							class='input{{if(options.error.email)}} is-danger{{/if}}'
+							required
+						/>
+					</div>
+				</div>
+				{{if(options.error.email)}}
+					{{foreach(options.error.email)}}
+					<p class='help is-danger'>{{@this}}</p>
+					{{/foreach}}
+				{{/if}}
+			</div>
+		</div>
+	</div>
+
+	<div class='field is-horizontal'>
+		<div class='field-label is-normal'>
+			<label for='phoneNumber' class='label'>Mobile phone number</span>
+		</div>
+		<div class='field-body'>
+			<div class='field is-expanded'>
+				<div class='field has-addons'>
+					<div class='control'>
+						<div class='button is-static'>
+							+44
+						</div>
+					</div>
+					<div class='control is-expanded'>
+						<input
+							id='phoneNumber'
+							name='phoneNumber'
+							type='tel'
+							value='{{if(options.value.phoneNumber)}}{{value.phoneNumber}}{{/if}}'
+							class='input{{if(options.error.phoneNumber)}} is-danger{{/if}}'
+						/>
+					</div>
+				</div>
+				<p class='help {{if(options.error.phoneNumber)}} is-danger{{/if}}'>
+					(Not required) Do not enter the first zero
+				</p>
+				{{if(options.error.phoneNumber)}}
+					{{foreach(options.error.phoneNumber)}}
+						<p class='help is-danger'>{{@this}}</p>
+					{{/foreach}}
+				{{/if}}
+			</div>
+		</div>
+	</div>
+
+	<div class='field is-horizontal'>
+		<div class='field-label is-normal'>
+			<span class='label'>Services</span>
+		</div>
+		<div class='field-body'>
+			<div class='field is-grouped is-grouped-multiline'>
+				<p class='control'>
+					<label class='button'>
+						<input
+							name='webDevelopment'
+							type='checkbox'
+							value='1'
+							{{if(options.value.webDevelopment)}}checked{{/if}}
+						/>&nbsp;Web development
+					</label>
+				</p>
+				<p class='control'>
+					<label class='button'>
+						<input
+							name='webHosting'
+							type='checkbox'
+							value='1'
+							{{if(options.value.webHosting)}}checked{{/if}}
+						/>&nbsp;Web hosting
+					</label>
+				</p>
+			</div>
+			<p class='help'>
+				Select any that apply
+			</p>
+		</div>
+	</div>
+
+	<div class='field is-horizontal'>
+		<div class='field-label is-normal'>
+			<label for='message' class='label'>Message</label>
+		</div>
+		<div class='field-body'>
+			<div class='field is-expanded'>
+				<div class='field is-expanded'>
+					<div class='control is-expanded'>
+						<textarea
+							id='message'
+							name='message'
+							class='textarea{{if(options.error.message)}} is-danger{{/if}}'
+							required
+						>{{if(options.value.message)}}{{value.message}}{{/if}}</textarea>
+					</div>
+				</div>
+				<p class='help{{if(options.error.message)}} is-danger{{/if}}'>
+					Explain how I can help you in as much detail as possible
+				</p>
+				{{if(options.error.message)}}
+					{{foreach(options.error.message)}}
+						<p class='help is-danger'>{{@this}}</p>
+					{{/foreach}}
+				{{/if}}
+			</div>
+		</div>
+	</div>
+
+	<input type='hidden' name='nonce' value='{{nonce}}' />
+
+	<div class='field is-horizontal'>
+		<div class='field-label'></div>
+		<div class='field-body'>
+			<div class='field is-grouped is-grouped-right'>
+				<div class='control'>
+					<button type='submit' class='button is-primary'>
+						Send message
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
