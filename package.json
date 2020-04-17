@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "start": "concurrently \"yarn:watch-*\" & yarn dev",
-    "dev": "NODE_ENV=development nodemon dist/server.js -e js,ts,squirrelly",
+    "dev": "NODE_ENV=development nodemon dist/server.js -e js,ts,squirrelly --delay 0.5",
     "watch-ts": "tsc --watch",
     "watch-sass": "yarn build-sass --watch",
     "build": "yarn build-ts && yarn build-sass",
@@ -20,7 +20,8 @@
   "license": "MIT",
   "engineStrict": true,
   "engines": {
-    "node": "12"
+    "node": "12.16.x",
+    "yarn": "1.22.x"
   },
   "dependencies": {
     "@sentry/node": "5.15.2",
