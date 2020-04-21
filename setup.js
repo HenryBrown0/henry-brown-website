@@ -2,12 +2,21 @@ const fs = require('fs');
 const path = require('path');
 const { Pool } = require('pg');
 
-const { DATABASE_URL } = process.env;
+const { NODE_ENV, DATABASE_URL } = process.env;
 
-const pool = new Pool({
+let poolConfig = {
 	connectionString: DATABASE_URL,
-	ssl: Boolean(DATABASE_URL),
-});
+};
+
+if (NODE_ENV !== 'development') {
+	poolConfig = {
+		...poolConfig,
+		ssl: { rejectUnauthorized: false },
+	};
+}
+
+const pool = new Pool(poolConfig);
+
 const schemaPath = path.join(__dirname, 'schema.sql');
 
 const runQuery = (statements) => {
