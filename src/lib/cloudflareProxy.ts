@@ -5,7 +5,7 @@ import lastInArray from './lastInArray';
 import httpRequest from './httpRequest';
 
 const { NODE_ENV } = process.env;
-const hostname = NODE_ENV === 'production' ? 'https://henrybrown0.com' : 'https://staging.henrybrown0.com';
+// const hostname = NODE_ENV === 'production' ? 'https://henrybrown0.com' : 'https://staging.henrybrown0.com';
 
 const requestOptions: RequestOptions = {
 	hostname: 'www.cloudflare.com',
