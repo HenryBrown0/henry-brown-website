@@ -30,18 +30,17 @@ if (NODE_ENV === 'production' || NODE_ENV === 'staging') {
 const cloudflareProxy: RequestHandler = (request, response, next) => {
 	const requestingIp = lastInArray(request.ips);
 
-	console.log('request.ips', request.ips);
-	console.log('request.ip', request.ip);
-	console.log('cloudflareCIDRs', cloudflareCIDRs);
-
 	for (let index = 0; index < cloudflareCIDRs.length; index += 1) {
 		const CIDR = cloudflareCIDRs[index];
 
-		if (CIDR.contains(requestingIp)) return next();
+		if (CIDR.contains(requestingIp)) {
+			console.log('Not redirected', request.ips, requestingIp, CIDR);
+			return next();
+		}
 	}
 
 	// return response.redirect(hostname + request.path);
-	console.log('redirect');
+	console.log('Redirected', request.ips, requestingIp);
 	return next();
 };
 
