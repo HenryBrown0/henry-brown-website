@@ -38,7 +38,7 @@ const cloudflareProxy: RequestHandler = (request, response, next) => {
 		}
 	}
 
-	return response.redirect(hostname + request.path, 301);
+	return response.redirect(301, hostname + request.path);
 };
 
 export default cloudflareProxy;
