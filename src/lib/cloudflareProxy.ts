@@ -34,7 +34,10 @@ const cloudflareProxy: RequestHandler = (request, response, next) => {
 	const requestingIp = request.ips.pop();
 
 	if (!cloudflareIps.includes(requestingIp)) {
-		return response.redirect(`https://henrybrown0.com${request.path}`);
+		if (NODE_ENV === 'production') {
+			return response.redirect(`https://henrybrown0.com${request.path}`);
+		}
+		return response.redirect(`https://staging.henrybrown0.com${request.path}`);
 	}
 
 	return next();
