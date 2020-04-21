@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "graphql-request": "^1.8.2",
     "helmet": "^3.21.2",
+    "ip-cidr": "^2.0.11",
     "markdown-it": "^10.0.0",
     "node-cache": "^5.1.0",
     "squirrelly": "^7.9.0",
@@ -34,6 +35,8 @@
   "devDependencies": {
     "@types/express": "^4.17.2",
     "@types/helmet": "^0.0.45",
+    "@types/ip-address": "^5.8.2",
+    "@types/jsbn": "^1.2.29",
     "@types/markdown-it": "^0.0.9",
     "@types/squirrelly": "^7.1.0",
     "@types/tinycolor2": "^1.4.2",
