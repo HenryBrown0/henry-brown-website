@@ -1,11 +1,19 @@
-import { Pool, QueryResult } from 'pg'; // eslint-disable-line
+import { Pool, QueryResult, PoolConfig } from 'pg'; // eslint-disable-line
 
-const { DATABASE_URL } = process.env;
+const { NODE_ENV, DATABASE_URL } = process.env;
 
-const pool = new Pool({
+let poolConfig: PoolConfig = {
 	connectionString: DATABASE_URL,
-	ssl: Boolean(DATABASE_URL),
-});
+};
+
+if (NODE_ENV !== 'development') {
+	poolConfig = {
+		...poolConfig,
+		ssl: { rejectUnauthorized: false },
+	};
+}
+
+const pool = new Pool(poolConfig);
 
 const query = async (
 	statement: string,
