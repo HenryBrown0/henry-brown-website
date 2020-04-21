@@ -5,7 +5,7 @@ import lastInArray from './lastInArray';
 import httpRequest from './httpRequest';
 
 const { NODE_ENV } = process.env;
-// const hostname = NODE_ENV === 'production' ? 'https://henrybrown0.com' : 'https://staging.henrybrown0.com';
+const hostname = NODE_ENV === 'production' ? 'https://henrybrown0.com' : 'https://staging.henrybrown0.com';
 
 const requestOptions: RequestOptions = {
 	hostname: 'www.cloudflare.com',
@@ -34,14 +34,11 @@ const cloudflareProxy: RequestHandler = (request, response, next) => {
 		const CIDR = cloudflareCIDRs[index];
 
 		if (CIDR.contains(requestingIp)) {
-			console.log('Not redirected', request.ips, requestingIp, CIDR);
 			return next();
 		}
 	}
 
-	// return response.redirect(hostname + request.path);
-	console.log('Redirected', request.ips, requestingIp);
-	return next();
+	return response.redirect(hostname + request.path, 301);
 };
 
 export default cloudflareProxy;
