@@ -4,7 +4,8 @@ import IPCIDR from 'ip-cidr';
 import lastInArray from './lastInArray';
 import httpRequest from './httpRequest';
 
-const { NODE_ENV = 'development' } = process.env;
+const { NODE_ENV } = process.env;
+const hostname = NODE_ENV === 'production' ? 'https://henrybrown0.com' : 'https://staging.henrybrown0.com';
 
 const requestOptions: RequestOptions = {
 	hostname: 'www.cloudflare.com',
@@ -29,16 +30,19 @@ if (NODE_ENV === 'production' || NODE_ENV === 'staging') {
 const cloudflareProxy: RequestHandler = (request, response, next) => {
 	const requestingIp = lastInArray(request.ips);
 
+	console.log('request.ips', request.ips);
+	console.log('request.ip', request.ip);
+	console.log('cloudflareCIDRs', cloudflareCIDRs);
+
 	for (let index = 0; index < cloudflareCIDRs.length; index += 1) {
 		const CIDR = cloudflareCIDRs[index];
 
 		if (CIDR.contains(requestingIp)) return next();
 	}
 
-	if (NODE_ENV === 'production') {
-		return response.redirect(`https://henrybrown0.com${request.path}`);
-	}
-	return response.redirect(`https://staging.henrybrown0.com${request.path}`);
+	// return response.redirect(hostname + request.path);
+	console.log('redirect');
+	return next();
 };
 
 export default cloudflareProxy;
