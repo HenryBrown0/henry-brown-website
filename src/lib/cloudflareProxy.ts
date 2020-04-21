@@ -1,5 +1,7 @@
 import { RequestHandler } from 'express'; // eslint-disable-line
 import { RequestOptions } from 'http'; // eslint-disable-line
+import IPCIDR from 'ip-cidr';
+import lastInArray from './lastInArray';
 import httpRequest from './httpRequest';
 
 const { NODE_ENV = 'development' } = process.env;
@@ -8,39 +10,35 @@ const requestOptions: RequestOptions = {
 	hostname: 'www.cloudflare.com',
 	path: '/ips-v4',
 	method: 'GET',
-	headers: {
-		'Content-Type': 'application/json',
-		'Accept-Language': 'text/plain',
-	},
+	headers: { 'Accept-Language': 'text/plain' },
 };
 
-const cloudflareIps: string[] = [];
-
+const cloudflareCIDRs: IPCIDR[] = [];
 if (NODE_ENV === 'production' || NODE_ENV === 'staging') {
 	httpRequest(requestOptions, null)
-		.then((rawIps: string) => {
-			rawIps.split('\n').forEach((rawIp) => {
-				const lastDotPosition = rawIp.lastIndexOf('.');
+		.then((rawCIDRs: string) => {
+			const CIDRs = rawCIDRs
+				.split('\n')
+				.map((rawCIDR) => new IPCIDR(rawCIDR))
+				.filter((CIDR) => CIDR.isValid());
 
-				const mainIp = rawIp.slice(0, lastDotPosition);
-				const endIps = rawIp.slice(lastDotPosition + 1).split('/');
-
-				cloudflareIps.push(...endIps.map((endIp) => `${mainIp}.${endIp}`));
-			});
+			cloudflareCIDRs.push(...CIDRs);
 		});
 }
 
 const cloudflareProxy: RequestHandler = (request, response, next) => {
-	const requestingIp = request.ips.pop();
+	const requestingIp = lastInArray(request.ips);
 
-	if (!cloudflareIps.includes(requestingIp)) {
-		if (NODE_ENV === 'production') {
-			return response.redirect(`https://henrybrown0.com${request.path}`);
-		}
-		return response.redirect(`https://staging.henrybrown0.com${request.path}`);
+	for (let index = 0; index < cloudflareCIDRs.length; index += 1) {
+		const CIDR = cloudflareCIDRs[index];
+
+		if (CIDR.contains(requestingIp)) return next();
 	}
 
-	return next();
+	if (NODE_ENV === 'production') {
+		return response.redirect(`https://henrybrown0.com${request.path}`);
+	}
+	return response.redirect(`https://staging.henrybrown0.com${request.path}`);
 };
 
 export default cloudflareProxy;

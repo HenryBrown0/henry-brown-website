@@ -19,7 +19,6 @@ sentry.init({
 if (NODE_ENV === 'production' || NODE_ENV === 'staging') {
 	app.set('trust proxy', true);
 }
-
 app.set('view engine', 'squirrelly');
 app.set('views', 'views');
 
@@ -29,7 +28,6 @@ app.use(helmet());
 if (NODE_ENV === 'production' || NODE_ENV === 'staging') {
 	app.use(cloudflareProxy);
 }
-
 app.use('/', routes);
 app.use('/static', express.static(path.join(__dirname, 'static'), {
 	maxAge: '14d',
