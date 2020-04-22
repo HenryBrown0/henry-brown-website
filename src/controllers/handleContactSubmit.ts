@@ -2,6 +2,7 @@ import { RequestHandler } from 'express'; // eslint-disable-line
 import { v4 as uuidv4 } from 'uuid';
 import { validationResult } from 'express-validator';
 import databaseQuery from '../lib/database';
+import { captureException } from '../helpers/logger';
 
 const navigationBarItems: INavigationBarItem[] = [
 	{
@@ -69,7 +70,7 @@ const handleContactSubmit: RequestHandler = async (request, response) => {
 		);
 		alreadyExist = Boolean(queryResult.rows.length);
 	} catch (error) {
-		console.error(error);
+		captureException(error);
 		return response.render('fullScreenMessage', {
 			heroType: 'is-danger',
 			pageTitle: 'Something went wrong my end',
@@ -104,7 +105,7 @@ const handleContactSubmit: RequestHandler = async (request, response) => {
 			],
 		);
 	} catch (error) {
-		console.error(error);
+		captureException(error);
 		return response.render('fullScreenMessage', {
 			heroType: 'is-danger',
 			pageTitle: 'Something went wrong my end',

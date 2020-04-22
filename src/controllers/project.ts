@@ -1,7 +1,9 @@
 import { Request, Response } from 'express'; // eslint-disable-line
+import { Severity } from '@sentry/node';
 import cache from '../helpers/cache';
 import getGitHubReadMe from '../models/gitHubReadMe';
 import getGithubRepository from '../models/gitHubRepository';
+import { captureException, captureMessage } from '../helpers/logger';
 
 interface IFullRepository {
 	backgroundColor: string;
@@ -36,7 +38,7 @@ const project = async (request: Request, response: Response) => {
 			getGitHubReadMe(projectName),
 		]);
 	} catch (error) {
-		console.error(error);
+		captureException(error);
 		response.statusCode = 500;
 		response.end();
 		return;
@@ -51,7 +53,7 @@ const project = async (request: Request, response: Response) => {
 	}
 
 	if (repository.isPrivate) {
-		console.warn('Private repository attempted to fetch');
+		captureMessage('Private repository attempted to fetch', Severity.Warning);
 		response.statusCode = 404;
 		response.render('project', {
 			year: new Date().getFullYear(),
@@ -60,7 +62,7 @@ const project = async (request: Request, response: Response) => {
 	}
 
 	if (!readMe) {
-		console.warn('Empty GitHub read me response');
+		captureMessage('Empty GitHub read me response', Severity.Warning);
 		response.statusCode = 404;
 		response.render('project', {
 			year: new Date().getFullYear(),
