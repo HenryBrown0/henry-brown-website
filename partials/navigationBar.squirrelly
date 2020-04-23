@@ -1,8 +1,6 @@
 <nav class='navbar is-sticky-top' role='navigation' aria-label='main navigation'>
 	<div class='navbar-brand'>
-		<a href='/' class='navbar-item'>
-			HB
-		</a>
+		<a href='/' class='navbar-item'>HB</a>
 
 		<a
 			id='navigation-bar-burger-button' 

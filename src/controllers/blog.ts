@@ -1,11 +1,15 @@
-import { Request, Response } from 'express'; // eslint-disable-line
+import { RequestHandler } from 'express'; // eslint-disable-line
+import getNavigationBarItems from '../helpers/navigationBarItems';
 
-const blog = (_: Request, res: Response) => {
-	res.render('blog', {
+const navigationBarItems = getNavigationBarItems('blog');
+
+const blog: RequestHandler = (_request, response) => (
+	response.render('blog', {
 		pageTitle: 'Blog',
+		description: null,
+		navigationBarItems,
 		posts: [],
-		year: new Date().getFullYear(),
-	});
-};
+	})
+);
 
 export default blog;

@@ -1,11 +1,10 @@
-import { Request, Response } from 'express'; // eslint-disable-line
+import { RequestHandler } from 'express'; // eslint-disable-line
 
-const index = (_: Request, res: Response) => {
-	res.render('index', {
-		description: 'Third year computer science student at the University of Kent',
+const index: RequestHandler = (_request, response) => (
+	response.render('index', {
 		pageTitle: 'Home',
-		year: new Date().getFullYear(),
-	});
-};
+		description: 'Third year computer science student at the University of Kent',
+	})
+);
 
 export default index;

@@ -3,26 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { validationResult } from 'express-validator';
 import databaseQuery from '../lib/database';
 import { captureException } from '../helpers/logger';
+import getNavigationBarItems from '../helpers/navigationBarItems';
 
-const navigationBarItems: INavigationBarItem[] = [
-	{
-		name: 'Blog',
-		href: 'blog',
-		isActive: false,
-	}, {
-		name: 'Projects',
-		href: 'project',
-		isActive: false,
-	}, {
-		name: 'Services',
-		href: 'service',
-		isActive: false,
-	}, {
-		name: 'Contact',
-		href: 'contact',
-		isActive: false,
-	},
-];
+const defaultNavigation = getNavigationBarItems(null);
+const contactNavigation = getNavigationBarItems('contact');
 
 const handleContactSubmit: RequestHandler = async (request, response) => {
 	const validationErrors = validationResult(request);
@@ -44,9 +28,9 @@ const handleContactSubmit: RequestHandler = async (request, response) => {
 		return response.render('contact', {
 			pageTitle: 'Contact',
 			description: 'Validation errors',
+			navigationBarItems: contactNavigation,
 			danger: true,
 			nonce: uuidv4(),
-			navigationBarItems,
 			error: errors,
 			value: request.body,
 		});
@@ -72,10 +56,10 @@ const handleContactSubmit: RequestHandler = async (request, response) => {
 	} catch (error) {
 		captureException(error);
 		return response.render('fullScreenMessage', {
-			heroType: 'is-danger',
 			pageTitle: 'Something went wrong my end',
+			navigationBarItems: defaultNavigation,
+			heroType: 'is-danger',
 			message: 'I\'ve been notified and will fix this soon',
-			navigationBarItems,
 		});
 	}
 
@@ -83,7 +67,7 @@ const handleContactSubmit: RequestHandler = async (request, response) => {
 		return response.render('contact', {
 			pageTitle: 'Contact me',
 			description: null,
-			navigationBarItems,
+			navigationBarItems: contactNavigation,
 			nonce: uuidv4(),
 			value: {},
 			error: {},
@@ -107,20 +91,20 @@ const handleContactSubmit: RequestHandler = async (request, response) => {
 	} catch (error) {
 		captureException(error);
 		return response.render('fullScreenMessage', {
-			heroType: 'is-danger',
 			pageTitle: 'Something went wrong my end',
+			navigationBarItems: defaultNavigation,
+			heroType: 'is-danger',
 			message: 'I\'ve been notified and will fix this soon',
-			navigationBarItems,
 		});
 	}
 
 	// TODO: send an email notification to myself
 
 	return response.render('fullScreenMessage', {
-		heroType: 'is-success',
 		pageTitle: 'Message received',
+		navigationBarItems: defaultNavigation,
+		heroType: 'is-success',
 		message: 'I\'ll get back to you shortly',
-		navigationBarItems,
 	});
 };
 

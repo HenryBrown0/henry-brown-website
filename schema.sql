@@ -11,3 +11,11 @@ CREATE TABLE IF NOT EXISTS user_query (
 	web_hosting BOOLEAN NOT NULL,
 	message TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS service (
+	title TEXT PRIMARY KEY,
+	subtitle TEXT,
+	backgroundColor CHAR(6) NOT NULL,
+	isBackgroundDark BOOLEAN NOT NULL,
+	content TEXT NOT NULL
+);

@@ -3,7 +3,7 @@
 		<div class='container'>
 			<h1 class='title is-3'>{{pageTitle}}</h1>
 			{{if(options.description)}}
-			<h2 class='subtitle is-5'>{{description}}</h2>
+				<h2 class='subtitle is-5'>{{description}}</h2>
 			{{/if}}
 		</div>
 	</div>

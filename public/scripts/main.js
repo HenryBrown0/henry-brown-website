@@ -6,12 +6,14 @@ const navBarContent = document.getElementById(
 	'navigation-bar-content',
 );
 
-navBarBurgerBtn.addEventListener('click', () => {
-	navBarBurgerBtn.classList.toggle('is-active');
-	navBarContent.classList.toggle('is-active');
+if (navBarBurgerBtn) {
+	navBarBurgerBtn.addEventListener('click', () => {
+		navBarBurgerBtn.classList.toggle('is-active');
+		navBarContent.classList.toggle('is-active');
 
-	const isOpen = JSON.parse(
-		navBarBurgerBtn.getAttribute('aria-expanded'),
-	);
-	navBarBurgerBtn.setAttribute('aria-expanded', !isOpen);
-});
+		const isOpen = JSON.parse(
+			navBarBurgerBtn.getAttribute('aria-expanded'),
+		);
+		navBarBurgerBtn.setAttribute('aria-expanded', !isOpen);
+	});
+}

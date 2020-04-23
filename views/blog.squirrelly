@@ -1,111 +1,25 @@
 <!DOCTYPE html>
 <html lang='en'>
-	<head>
-		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-		<meta charset='utf-8'>
-		{{ if(options.description)}}
-			<meta name='description' content='{{description}}'>
-		{{/if}}
-		<title>HB | Blog</title>
-		<link rel='stylesheet' href='/static/styles/index.css' />
-		<link
-			rel='apple-touch-icon'
-			sizes='180x180'
-			href='/icons/favicon/apple-touch-icon.png'
-		>
-		<link
-			rel='icon'
-			type='image/png'
-			sizes='32x32'
-			href='/icons/favicon/favicon-32x32.png'
-		>
-		<link
-			rel='icon'
-			type='image/png'
-			sizes='16x16'
-			href='/icons/favicon/favicon-16x16.png'
-		>
-		<link rel='manifest' href='/site.webmanifest'>
-	</head>
 
-	<body class='has-navbar-fixed-top full-height is-flex'>
-		<div>
-			<nav
-				class='navbar is-fixed-top'
-				role='navigation'
-				aria-label='main navigation'
-			>
-				<div class='navbar-brand'>
-					<a class='navbar-item' href='/'>
-						HB
-					</a>
-			
-					<a
-						id='navigation-bar-burger-button'
-						role='button'
-						class='navbar-burger burger'
-						aria-label='menu'
-						aria-expanded='false'
-						data-target='navigation-bar-content'
-					>
-						<span aria-hidden='true'></span>
-						<span aria-hidden='true'></span>
-						<span aria-hidden='true'></span>
-					</a>
-				</div>
-			
-				<div id='navigation-bar-content' class='navbar-menu'>
-					<div class='navbar-start'>
-						<a href='/blog' class='navbar-item is-active'>
-							Blog
-						</a>
-			
-						<a href='/project' class='navbar-item'>
-							Projects
-						</a>
-					</div>
-				</div>
-			</nav>
+<head>
+	{{include(head)/}}
+</head>
 
-			<header class='hero is-dark'>
-				<div class='hero-body'>
-					<div class='container'>
-						<h1 class='title is-3'>Blog</h1>
-						{{if(options.description)}}
-							<h2 class='subtitle is-5'>{{description}}</h2>
-						{{/if}}
-					</div>
-				</div>
-			</header>
+<body class='is-flex full-height'>
+	<div>
+		{{include(navigationBar)/}}
 
-			<main class='section'>
-				<div class='container'>
-					<p>No blog posts</p>
-				</div>
-			</main>
-		</div>
+		{{include(header)/}}
 
-		{{include(footer)/}}
+		<main class='section'>
+			<div class='container'>
+				<p>No blog posts</p>
+			</div>
+		</main>
+	</div>
 
-		<script>
-			document.addEventListener('DOMContentLoaded', () => {
-				const navBarBurgerBtn = document.getElementById(
-					'navigation-bar-burger-button'
-				);
-				const navBarContent = document.getElementById(
-					'navigation-bar-content'
-				);
+	{{include(footer)/}}
+</body>
 
-				navBarBurgerBtn.addEventListener('click', () => {
-					navBarBurgerBtn.classList.toggle('is-active');
-					navBarContent.classList.toggle('is-active');
-
-					const isOpen = JSON.parse(
-						navBarBurgerBtn.getAttribute('aria-expanded')
-					);
-					navBarBurgerBtn.setAttribute('aria-expanded', !isOpen);
-				});
-			});
-		</script>
-	</body>
 </html>
+

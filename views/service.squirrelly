@@ -1,111 +1,77 @@
 <!DOCTYPE html>
 <html lang='en'>
 	<head>
-		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-		<meta charset='utf-8'>
-		{{ if(options.description)}}
-			<meta name='description' content='{{description}}'>
-		{{/if}}
-		<title>HB | Services</title>
-		<link rel='stylesheet' href='/static/styles/index.css' />
-		<link
-			rel='apple-touch-icon'
-			sizes='180x180'
-			href='/icons/favicon/apple-touch-icon.png'
-		>
-		<link
-			rel='icon'
-			type='image/png'
-			sizes='32x32'
-			href='/icons/favicon/favicon-32x32.png'
-		>
-		<link
-			rel='icon'
-			type='image/png'
-			sizes='16x16'
-			href='/icons/favicon/favicon-16x16.png'
-		>
-		<link rel='manifest' href='/site.webmanifest'>
+		{{include(head)/}}
 	</head>
 
-	<body class='has-navbar-fixed-top is-flex full-height'>
+	<body class='is-flex full-height'>
 		<div>
-			<nav
-				class='navbar is-fixed-top'
-				role='navigation'
-				aria-label='main navigation'
-			>
-				<div class='navbar-brand'>
-					<a class='navbar-item' href='/'>
-						HB
-					</a>
+			{{include(navigationBar)/}}
 
-					<a
-						id='navigation-bar-burger-button'
-						role='button'
-						class='navbar-burger burger'
-						aria-label='menu'
-						aria-expanded='false'
-						data-target='navigation-bar-content'
-					>
-						<span aria-hidden='true'></span>
-						<span aria-hidden='true'></span>
-						<span aria-hidden='true'></span>
-					</a>
-				</div>
+			{{include(header)/}}
 
-				<div id='navigation-bar-content' class='navbar-menu'>
-					<div class='navbar-start'>
-						<a href='/blog' class='navbar-item'>
-							Blog
-						</a>
-
-						<a href='/project' class='navbar-item'>
-							Projects
-						</a>
-					</div>
-				</div>
-			</nav>
-
-			<header class='hero is-dark'>
-				<div class='hero-body'>
+			{{if(!options.services || !options.services.length)}}
+				<section class='section'>
 					<div class='container'>
-						<h1 class='title is-3'>Services</h1>
-						{{if(options.description)}}
-							<h2 class='subtitle is-5'>{{description}}</h2>
-						{{/if}}
+						<p>No services found</p>
+					</div>
+				</section>
+			{{#else}}
+				<section class='section'>
+					<div class='container content'>
+						<p>On this page:</p>
+						<ul>
+							{{foreach(options.services)}}
+								<li>
+									<a href='#{{@this.title}}'>{{@this.title}}</a>
+								</li>
+							{{/foreach}}
+							<li>
+								<a href='#contact'>Get in touch</a>
+							</li>
+						</ul>
+					</div>
+				</section>
+
+				{{foreach(options.services)}}
+					<section
+						id='{{@this.title}}'
+						class='hero {{if(@this.isBackgroundDark)}}is-dark{{/if}}'
+						style='background-color: #{{@this.backgroundColor}};'
+					>
+						<div class="hero-body">
+							<div class="container">
+								<h1 class="title is-4">{{@this.title}}</h1>
+								<h2 class="subtitle is-6">{{@this.subtitle}}</h2>
+							</div>
+						</div>
+					</section>
+					<section class='section'>
+						<div class='container'>
+							<div class='content'>{{@this.content | safe}}</div>
+						</div>
+					</section>
+				{{/foreach}}
+			{{/if}}
+
+			<section id='contact' class="hero is-primary is-bold is-info">
+				<div class="hero-body">
+					<div class="container">
+						<h1 class="title is-4">Contact</h1>
+						<h2 class='subtitle is-6'>
+							For more information or pricing please get in touch
+						</h2>
 					</div>
 				</div>
-			</header>
+			</section>
 
-			<main class='section'>
+			<section class='section'>
 				<div class='container'>
-					<p>Coming soon...</p>
+					{{include(contactForm)/}}
 				</div>
-			</main>
+			</section>
 		</div>
 
 		{{include(footer)/}}
-
-		<script>
-			document.addEventListener('DOMContentLoaded', () => {
-				const navBarBurgerBtn = document.getElementById(
-					'navigation-bar-burger-button'
-				);
-				const navBarContent = document.getElementById(
-					'navigation-bar-content'
-				);
-
-				navBarBurgerBtn.addEventListener('click', () => {
-					navBarBurgerBtn.classList.toggle('is-active');
-					navBarContent.classList.toggle('is-active');
-
-					const isOpen = JSON.parse(
-						navBarBurgerBtn.getAttribute('aria-expanded')
-					);
-					navBarBurgerBtn.setAttribute('aria-expanded', !isOpen);
-				});
-			});
-		</script>
 	</body>
 </html>

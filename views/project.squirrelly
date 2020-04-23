@@ -1,129 +1,66 @@
 <!DOCTYPE html>
 <html lang='en'>
-	<head>
-		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-		{{ if(options.description)}}
-			<meta name='description' content='{{description}}'>
-		{{/if}}
-		{{if(options.name)}}
-			<title>HB | {{name}}</title>
-		{{#else}}
-			<title>HB | No project found</title>
-		{{/if}}
-		<link rel='stylesheet' href='/static/styles/index.css' />
-	</head>
-	<body class='has-navbar-fixed-top is-flex full-height'>
-		<div>
-			<nav
-				class='navbar is-fixed-top'
-				role='navigation'
-				aria-label='main navigation'
-			>
-				<div class='navbar-brand'>
-					<a class='navbar-item' href='/'>
-						HB
-					</a>
-			
-					<a
-						id='navigation-bar-burger-button'
-						role='button'
-						class='navbar-burger burger'
-						aria-label='menu'
-						aria-expanded='false'
-						data-target='navigation-bar-content'
-					>
-						<span aria-hidden='true'></span>
-						<span aria-hidden='true'></span>
-						<span aria-hidden='true'></span>
-					</a>
-				</div>
-			
-				<div id='navigation-bar-content' class='navbar-menu'>
-					<div class='navbar-start'>
-						<a href='/blog' class='navbar-item'>
-							Blog
-						</a>
-			
-						<a href='/project' class='navbar-item'>
-							Projects
-						</a>
-					</div>
-				</div>
-			</nav>
 
-			
-			<section
-				class='hero {{if(options.isBackgroundDark)}}is-dark{{/if}}'
-				style='background-color: {{backgroundColor}};'
-			>
-				<div class='hero-body'>
-					<div class='container'>
-						<h1 class='title is-3'>
-							{{if(options.name)}}
-								{{name}}
-							{{#else}}
-								No project found
-							{{/if}}
-						</h1>
-						{{if(options.description)}}
-							<h2 class='subtitle is-5'>{{description}}</h2>
+<head>
+	{{include(head)/}}
+</head>
+
+<body class='is-flex full-height'>
+	<div>
+		{{include(navigationBar)/}}
+
+		<section
+			class='hero {{if(options.isBackgroundDark)}}is-dark{{/if}}'
+			style='background-color: {{backgroundColor}};'
+		>
+			<div class='hero-body'>
+				<div class='container'>
+					<h1 class='title is-3'>
+						{{if(options.pageTitle)}}
+							{{pageTitle}}
+						{{#else}}
+							No project found
 						{{/if}}
-					</div>
+					</h1>
+					{{if(options.description)}}
+						<h2 class='subtitle is-5'>{{description}}</h2>
+					{{/if}}
 				</div>
-			</section>
+			</div>
+		</section>
 
-			<section class='section'>
-				<main class='container'>
-					{{if(options.gitHubUrl)}}
-						<div class='columns'>
-							<div class='column'>
-								<a href='{{gitHubUrl}}' class='button' target='_blank'>
-									<span class='icon is-small'>
-										<span class='icon'>
-											<img
-												src='/icons/github-brands.svg'
-												alt='GitHub'
-												class='image is-16x16'
-											/>
-										</span>
+		<main class='section'>
+			<div class='container'>
+				{{if(options.gitHubUrl)}}
+					<div class='columns'>
+						<div class='column'>
+							<a href='{{gitHubUrl}}' class='button' target='_blank'>
+								<span class='icon is-small'>
+									<span class='icon'>
+										<img
+											src='/icons/github-brands.svg'
+											alt='GitHub'
+											class='image is-16x16'
+										/>
 									</span>
-									<span>View on GitHub</span>
-								</a>
-							</div>
+								</span>
+								<span>View on GitHub</span>
+							</a>
 						</div>
-					{{/if}}
-					{{if(options.project)}}
-						<div class='columns'>
-							<div class='column'>
-								<div class='content'>{{project | safe}}</div>
-							</div>
+					</div>
+				{{/if}}
+				{{if(options.project)}}
+					<div class='columns'>
+						<div class='column'>
+							<div class='content'>{{project | safe}}</div>
 						</div>
-					{{/if}}
-				</main>
-			</section>
-		</div>
+					</div>
+				{{/if}}
+			</div>
+		</main>
+	</div>
 
-		{{include(footer)/}}
+	{{include(footer)/}}
+</body>
 
-		<script>
-			document.addEventListener('DOMContentLoaded', () => {
-				const navBarBurgerBtn = document.getElementById(
-					'navigation-bar-burger-button'
-				);
-				const navBarContent = document.getElementById(
-					'navigation-bar-content'
-				);
-
-				navBarBurgerBtn.addEventListener('click', () => {
-					navBarBurgerBtn.classList.toggle('is-active');
-					navBarContent.classList.toggle('is-active');
-
-					const isOpen = JSON.parse(
-						navBarBurgerBtn.getAttribute('aria-expanded')
-					);
-					navBarBurgerBtn.setAttribute('aria-expanded', !isOpen);
-				});
-			});
-		</script>
-	</body>
 </html>
