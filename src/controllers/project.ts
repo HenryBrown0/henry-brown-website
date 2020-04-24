@@ -1,7 +1,10 @@
 import { Request, Response } from 'express'; // eslint-disable-line
+import { Severity } from '@sentry/node';
 import cache from '../helpers/cache';
 import getGitHubReadMe from '../models/gitHubReadMe';
 import getGithubRepository from '../models/gitHubRepository';
+import { captureException, captureMessage } from '../helpers/logger';
+import getNavigationBarItems from '../helpers/navigationBarItems';
 
 interface IFullRepository {
 	backgroundColor: string;
@@ -13,6 +16,28 @@ interface IFullRepository {
 	uri: string;
 }
 
+const navigationBarItems = getNavigationBarItems('project');
+
+const projectNotFound: {
+	pageTitle: string,
+	description: string,
+	navigationBarItems: {}[],
+	backgroundColor: string,
+	gitHubUrl: string,
+	isBackgroundDark: string,
+	uri: string,
+	project: string,
+} = {
+	pageTitle: 'Project not found',
+	description: null,
+	navigationBarItems,
+	backgroundColor: null,
+	gitHubUrl: null,
+	isBackgroundDark: null,
+	uri: null,
+	project: null,
+};
+
 const project = async (request: Request, response: Response) => {
 	const { projectName } = request.params;
 
@@ -21,11 +46,16 @@ const project = async (request: Request, response: Response) => {
 
 	const fullRepository: IFullRepository = cache.get(projectName);
 	if (fullRepository) {
-		response.render('project', {
-			...fullRepository,
-			year: new Date().getFullYear(),
+		return response.render('project', {
+			pageTitle: fullRepository.name,
+			description: fullRepository.description,
+			navigationBarItems,
+			backgroundColor: fullRepository.backgroundColor,
+			gitHubUrl: fullRepository.gitHubUrl,
+			isBackgroundDark: fullRepository.isBackgroundDark,
+			uri: fullRepository.uri,
+			project: fullRepository.project,
 		});
-		return;
 	}
 
 	let repository;
@@ -36,44 +66,38 @@ const project = async (request: Request, response: Response) => {
 			getGitHubReadMe(projectName),
 		]);
 	} catch (error) {
-		console.error(error);
-		response.statusCode = 500;
-		response.end();
-		return;
+		captureException(error);
+		return response.sendStatus(500);
 	}
 
 	if (!repository) {
 		response.statusCode = 404;
-		response.render('project', {
-			year: new Date().getFullYear(),
-		});
-		return;
+		return response.render('project', projectNotFound);
 	}
 
 	if (repository.isPrivate) {
-		console.warn('Private repository attempted to fetch');
+		captureMessage('Private repository attempted to fetch', Severity.Warning);
 		response.statusCode = 404;
-		response.render('project', {
-			year: new Date().getFullYear(),
-		});
-		return;
+		return response.render('project', projectNotFound);
 	}
 
 	if (!readMe) {
-		console.warn('Empty GitHub read me response');
+		captureMessage('Empty GitHub read me response', Severity.Warning);
 		response.statusCode = 404;
-		response.render('project', {
-			year: new Date().getFullYear(),
-		});
-		return;
+		return response.render('project', projectNotFound);
 	}
 
 	cache.set(repository.uri, { ...repository, project: readMe }, 7200);
 
-	response.render('project', {
-		...repository,
+	return response.render('project', {
+		pageTitle: repository.name,
+		description: repository.description,
+		navigationBarItems,
+		backgroundColor: repository.backgroundColor,
+		gitHubUrl: repository.gitHubUrl,
+		isBackgroundDark: repository.isBackgroundDark,
+		uri: repository.uri,
 		project: readMe,
-		year: new Date().getFullYear(),
 	});
 };
 

@@ -1,162 +1,162 @@
 <!DOCTYPE html>
 <html lang='en'>
-	<head>
-		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-		<meta charset="utf-8">
-		{{ if(options.description)}}
-			<meta name='description' content='{{description}}'>
-		{{/if}}
-		<title>HB | Home</title>
-		<link rel='stylesheet' href='/static/styles/index.css' />
-	</head>
-	<body class='full-height is-flex'>
-		<div>
-			<header class='hero is-medium is-dark is-bold'>
-				<div class='hero-body'>
-					<div class='container'>
-						<h1><a class='title is-3' href='/'>Henry Brown</a></h1>
-						{{ if(options.description)}}
-							<h2 class='subtitle is-5'>{{description}}</h2>
-						{{/if}}
-						<p class='is-hidden-tablet buttons'>
-							<a
-								href='https://twitter.com/Henry_Brown_0'
-								target='_blank'
-								class='button is-dark'
-							>
-								<span class='icon is-small'>
-									<img
-										src='/icons/twitter-brands-white.svg'
-										alt='Twitter'
-										class='image is-16x16'
-									/>
-								</span>
-							</a>
-							<a
-								href='https://t.me/HenryBrown0'
-								target='_blank'
-								class='button is-dark'
-							>
-								<span class='icon is-small'>
-									<img
-										src='/icons/telegram-plane-brands-white.svg'
-										alt='Telegram'
-										class='image is-16x16'
-									/>
-								</span>
-							</a>
-							<a
-								href='https://github.com/HenryBrown0'
-								target='_blank'
-								class='button is-dark'
-							>
-								<span class='icon is-small'>
-									<img
-										src='/icons/github-brands-white.svg'
-										alt='GitHub'
-										class='image is-16x16'
-									/>
-								</span>
-							</a>
-						</p>
-					</div>
-				</div>
-			</header>
 
-			<main class='section'>
+<head>
+	{{include(head)/}}
+</head>
+
+<body class='is-flex full-height'>
+	<div>
+		<header class='hero is-medium is-dark is-bold'>
+			<div class='hero-body'>
 				<div class='container'>
-					<div class='tile is-ancestor'>
-						<div class='tile is-4 is-parent is-hidden-mobile'>
-							<a
-								href='https://twitter.com/Henry_Brown_0'
-								target='_blank'
-								class='tile tile-twitter is-child box is-radiusless is-flex flex-centre'
-							>
-								<span class='icon is-small'>
-									<img
-										src='/icons/twitter-brands-white.svg'
-										alt='Twitter'
-										class='image is-16x16'
-									/>
-								</span>
-							</a>
-						</div>
-						<div class='tile is-8 is-parent'>
-							<a
-								href='/blog'
-								class='tile is-child box has-background-grey-lighter tile-background is-radiusless tile-blog'
-							>
-								<div class='section has-text-centered'>
-									<div class='box is-inline-block is-radiusless'>
-										<h3 class='title'>Blog</h3>
-									</div>
-								</div>
-							</a>
-						</div>
+					<h1>
+						<a class='title is-3' href='/'>Henry Brown</a>
+					</h1>
+					{{if(options.description)}}
+						<h2 class='subtitle is-5'>{{description}}</h2>
+					{{/if}}
+					<p class='is-hidden-tablet buttons'>
+						<a
+							href='https://twitter.com/Henry_Brown_0'
+							target='_blank'
+							class='button is-dark'
+						>
+							<span class='icon is-small'>
+								<img
+									src='/icons/twitter-brands-white.svg'
+									alt='Twitter Icon'
+									class='image is-16x16'
+								/>
+							</span>
+						</a>
+						<a
+							href='https://t.me/HenryBrown0'
+							target='_blank'
+							class='button is-dark'
+						>
+							<span class='icon is-small'>
+								<img
+									src='/icons/telegram-plane-brands-white.svg'
+									alt='Telegram Icon'
+									class='image is-16x16'
+								/>
+							</span>
+						</a>
+						<a
+							href='https://github.com/HenryBrown0'
+							target='_blank'
+							class='button is-dark'
+						>
+							<span class='icon is-small'>
+								<img
+									src='/icons/github-brands-white.svg'
+									alt='GitHub Icon'
+									class='image is-16x16'
+								/>
+							</span>
+						</a>
+					</p>
+				</div>
+			</div>
+		</header>
+	
+		<main class='section'>
+			<div class='container'>
+				<div class='tile is-ancestor'>
+					<div class='tile is-4 is-parent is-hidden-mobile'>
+						<a
+							href='https://twitter.com/Henry_Brown_0'
+							target='_blank'
+							class='tile tile-twitter is-child box is-radiusless is-flex flex-centre'
+						>
+							<span class='icon is-small'>
+								<img
+									src='/icons/twitter-brands-white.svg'
+									alt='Twitter Icon'
+									class='image is-16x16'
+								/>
+							</span>
+						</a>
 					</div>
-
-					<div class='tile is-ancestor'>
-						<div class='tile is-8 is-parent'>
-							<a
-								href='/project'
-								class='tile is-child box has-background-grey-lighter tile-background is-radiusless tile-project'
-							>
-								<div class='section has-text-centered'>
-									<div class='box is-inline-block is-radiusless'>
-										<h3 class='title'>Projects</h3>
-									</div>
+					<div class='tile is-8 is-parent'>
+						<a
+							href='/blog'
+							class='tile is-child box has-background-grey-lighter tile-background is-radiusless tile-blog'
+						>
+							<div class='section has-text-centered'>
+								<div class='box is-inline-block is-radiusless'>
+									<h3 class='title'>Blog</h3>
 								</div>
-							</a>
-						</div>
-						<div class='tile is-4 is-parent is-hidden-mobile'>
-							<a
-								href='https://t.me/HenryBrown0'
-								target='_blank'
-								class='tile tile-telegram is-child box is-radiusless is-flex flex-centre'
-							>
-								<span class='icon is-small'>
-									<img
-										src='/icons/telegram-plane-brands-white.svg'
-										alt='Telegram'
-										class='image is-16x16'
-									/>
-								</span>
-							</a>
-						</div>
-					</div>
-
-					<div class='tile is-ancestor'>
-						<div class='tile is-4 is-parent is-hidden-mobile'>
-							<a
-								href='https://github.com/HenryBrown0'
-								target='_blank'
-								class='tile tile-github is-child box is-radiusless is-flex flex-centre'
-							>
-								<span class='icon is-small'>
-									<img
-										src='/icons/github-brands-white.svg'
-										alt='GitHub'
-										class='image is-16x16'
-									/>
-								</span>
-							</a>
-						</div>
-						<div class='tile is-8 is-parent'>
-							<a
-								href='/service'
-								class='tile is-child box has-background-grey-lighter tile-background is-radiusless tile-service'
-							>
-								<div class='section has-text-centered'>
-									<div class='box is-inline-block is-radiusless'>
-										<h3 class='title'>Services</h3>
-									</div>
-								</div>
-							</a>
-						</div>
+							</div>
+						</a>
 					</div>
 				</div>
-			</main>
-		</div>
-		{{include(footer)/}}
-	</body>
+	
+				<div class='tile is-ancestor'>
+					<div class='tile is-8 is-parent'>
+						<a
+							href='/project'
+							class='tile is-child box has-background-grey-lighter tile-background is-radiusless tile-project'
+						>
+							<div class='section has-text-centered'>
+								<div class='box is-inline-block is-radiusless'>
+									<h3 class='title'>Projects</h3>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class='tile is-4 is-parent is-hidden-mobile'>
+						<a
+							href='https://t.me/HenryBrown0'
+							target='_blank'
+							class='tile tile-telegram is-child box is-radiusless is-flex flex-centre'
+						>
+							<span class='icon is-small'>
+								<img
+									src='/icons/telegram-plane-brands-white.svg'
+									alt='Telegram Icon'
+									class='image is-16x16'
+								/>
+							</span>
+						</a>
+					</div>
+				</div>
+	
+				<div class='tile is-ancestor'>
+					<div class='tile is-4 is-parent is-hidden-mobile'>
+						<a
+							href='https://github.com/HenryBrown0'
+							target='_blank'
+							class='tile tile-github is-child box is-radiusless is-flex flex-centre'
+						>
+							<span class='icon is-small'>
+								<img
+									src='/icons/github-brands-white.svg'
+									alt='GitHub Icon'
+									class='image is-16x16'
+								/>
+							</span>
+						</a>
+					</div>
+					<div class='tile is-8 is-parent'>
+						<a
+							href='/service'
+							class='tile is-child box has-background-grey-lighter tile-background is-radiusless tile-service'
+						>
+							<div class='section has-text-centered'>
+								<div class='box is-inline-block is-radiusless'>
+									<h3 class='title'>Services</h3>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+
+	{{include(footer)/}}
+</body>
+
 </html>

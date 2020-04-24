@@ -1,0 +1,14 @@
+{
+	"name": "Henry Brown Website",
+	"description": "Personal website hosted at https://henrybrown0.com",
+	"website": "https://henrybrown0.com",
+	"repository": "https://github.com/HenryBrown0/henry-brown-website",
+	"addons": [
+		{
+			"plan": "heroku-postgresql:hobby-dev",
+			"options": {
+				"version": "12"
+			}
+		}
+	]
+}

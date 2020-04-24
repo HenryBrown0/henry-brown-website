@@ -1,4 +1,5 @@
 import https from 'https';
+import { captureException } from '../helpers/logger';
 
 const request = async (options: https.RequestOptions, body: string) => {
 	const isJson = options.headers['Accept-Language'] === 'application/json';
@@ -10,12 +11,12 @@ const request = async (options: https.RequestOptions, body: string) => {
 
 			let error;
 			if (statusCode !== 200) {
-				error = `Request Failed.\n Status Code: ${statusCode}`;
+				error = new Error(`Request Failed.\n Status Code: ${statusCode}`);
 			} else if (isJson && !/^application\/json/.test(contentType)) {
-				error = `Invalid content-type.\n Expected application/json but received ${contentType}`;
+				error = new Error(`Invalid content-type.\n Expected application/json but received ${contentType}`);
 			}
 			if (error) {
-				console.error(error);
+				captureException(error);
 				// Consume response data to free up memory
 				httpResponse.resume();
 				return resolve(null);
@@ -31,7 +32,7 @@ const request = async (options: https.RequestOptions, body: string) => {
 				try {
 					jsonData = JSON.parse(rawData);
 				} catch (parsingError) {
-					console.error(parsingError.message);
+					captureException(parsingError);
 					return resolve(null);
 				}
 				return resolve(jsonData);
@@ -39,7 +40,7 @@ const request = async (options: https.RequestOptions, body: string) => {
 		});
 
 		httpRequest.on('error', (httpError) => {
-			console.error(`problem with request: ${httpError.message}`);
+			captureException(httpError);
 			return resolve(null);
 		});
 
