@@ -1,158 +1,86 @@
 <!DOCTYPE html>
 <html lang='en'>
-	<head>
-		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-		{{ if(options.description)}}
-			<meta name='description' content='{{description}}'>
-		{{/if}}
-		{{if(options.pageTitle)}}
-			<title>HB | {{pageTitle}}</title>
-		{{#else}}
-			<title>HB | Projects</title>
-		{{/if}}
-		<link rel='stylesheet' href='/static/styles/index.css' />
-	</head>
 
-	<body class='has-navbar-fixed-top full-height is-flex'>
-		<div>
-			<nav
-				class='navbar is-fixed-top'
-				role='navigation'
-				aria-label='main navigation'
-			>
-				<div class='navbar-brand'>
-					<a class='navbar-item' href='/'>
-						HB
-					</a>
-			
-					<a
-						id='navigation-bar-burger-button'
-						role='button'
-						class='navbar-burger burger'
-						aria-label='menu'
-						aria-expanded='false'
-						data-target='navigation-bar-content'
-					>
-						<span aria-hidden='true'></span>
-						<span aria-hidden='true'></span>
-						<span aria-hidden='true'></span>
-					</a>
-				</div>
-			
-				<div id='navigation-bar-content' class='navbar-menu'>
-					<div class='navbar-start'>
-						<a href='/blog' class='navbar-item'>
-							Blog
-						</a>
-			
-						<a href='/project' class='navbar-item is-active'>
-							Projects
-						</a>
-					</div>
-				</div>
-			</nav>
+<head>
+	{{include(head)/}}
+</head>
 
-			<section class='hero is-dark'>
-				<div class='hero-body'>
-					<div class='container'>
-						<h1 class='title is-3'>
-							{{if(options.pageTitle)}}
-								{{pageTitle}}
-							{{#else}}
-								Projects
-							{{/if}}
-						</h1>
-						{{if(options.description)}}
-							<h2 class='subtitle is-5'>{{description}}</h2>
-						{{/if}}
-					</div>
-				</div>
-			</section>
+<body class='is-flex full-height'>
+	<div>
+		{{include(navigationBar)/}}
 
-			{{if(options.projects.length)}}
-				<section class='section'>
-					<div class='container'>
-						<div class='columns is-mobile is-multiline'>
-							{{foreach(options.projects)}}
-								<div
-									class='column is-12-mobile is-6-tablet is-4-desktop is-4-widescreen is-3-fullhd'
-								>
-									<div class='card'>
-										<div>
-											<div
-												class='card-image'
-												style='background-color: {{@this.backgroundColor}};'
-											></div>
-											<div class='card-content'>
-												<h3 class='title is-3'>
-													{{@this.name}}
-													{{if(@this.isArchived)}}
-														<sup>
-															<span class='icon is-small'>
-																<img
-																	src='/icons/snowflake-light.svg'
-																	alt='Archived'
-																	class='image is-16x16'
-																/>
-															</span>
-														</sup>
-													{{/if}}
-												</h3>
-												<h4 class='subtitle is-5'>
-													{{if(@this.description)}}{{@this.description}}{{/if}}
-												</h4>
+		{{include(header)/}}
+
+		<main class='section'>
+			<div class='container'>
+				{{if(!options.projects.length)}}
+					<section class='hero'>
+						<div class='hero-body'>
+							<div class='container'>
+								<h1 class='title is-3'>No projects found</h1>
+							</div>
+						</div>
+					</section>
+				{{#else}}
+					<section class='section'>
+						<div class='container'>
+							<div class='columns is-mobile is-multiline'>
+								{{foreach(options.projects)}}
+									<div
+										class='column is-12-mobile is-6-tablet is-4-desktop is-4-widescreen is-3-fullhd'
+									>
+										<div class='card'>
+											<div>
+												<div
+													class='card-image'
+													style='background-color: {{@this.backgroundColor}};'
+												></div>
+												<div class='card-content'>
+													<h3 class='title is-3'>
+														{{@this.name}}
+														{{if(@this.isArchived)}}
+															<sup>
+																<span class='icon is-small'>
+																	<img
+																		src='/icons/snowflake-light.svg'
+																		alt='Archived'
+																		class='image is-16x16'
+																	/>
+																</span>
+															</sup>
+														{{/if}}
+													</h3>
+													<h4 class='subtitle is-5'>
+														{{if(@this.description)}}
+															{{@this.description}}
+														{{/if}}
+													</h4>
+												</div>
+											</div>
+											<div>
+												<p class='card-footer-item'>
+													<small>Last updated: {{@this.updatedAt}}</small>
+												</p>
+												<footer class='card-footer'>
+													<a href='{{@this.link}}' class='card-footer-item'>
+														<span>
+															Read more
+														</span>
+													</a>
+												</footer>
 											</div>
 										</div>
-										<div>
-											<p class='card-footer-item'>
-												<small>Last updated: {{@this.updatedAt}}</small>
-											</p>
-											<footer class='card-footer'>
-												<a href='{{@this.link}}' class='card-footer-item'>
-													<span>
-														Read more
-													</span>
-												</a>
-											</footer>
-										</div>
 									</div>
-								</div>
-							{{/foreach}}
+								{{/foreach}}
+							</div>
 						</div>
-					</div>
-				</section>
-			{{#else}}
-				<section class='hero'>
-					<div class='hero-body'>
-						<div class='container'>
-							<h1 class='title is-3'>No projects found</h1>
-						</div>
-					</div>
-				</section>
-			{{/if}}
-		</div>
+					</section>
+				{{/if}}
+			</div>
+		</main>
+	</div>
 
-		{{include(footer)/}}
+	{{include(footer)/}}
+</body>
 
-		<script>
-			document.addEventListener('DOMContentLoaded', () => {
-				const navBarBurgerBtn = document.getElementById(
-					'navigation-bar-burger-button'
-				);
-				const navBarContent = document.getElementById(
-					'navigation-bar-content'
-				);
-
-				navBarBurgerBtn.addEventListener('click', () => {
-					navBarBurgerBtn.classList.toggle('is-active');
-					navBarContent.classList.toggle('is-active');
-
-					const isOpen = JSON.parse(
-						navBarBurgerBtn.getAttribute('aria-expanded')
-					);
-					navBarBurgerBtn.setAttribute('aria-expanded', !isOpen);
-				});
-			});
-		</script>
-	</body>
 </html>

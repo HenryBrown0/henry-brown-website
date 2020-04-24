@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+	{{include(head)/}}
+</head>
+
+<body>
+	{{include(navigationBar)/}}
+
+	<main class='hero is-fullheight-with-navbar {{heroType}}'>
+		<div class='hero-body'>
+			<div class='container'>
+				<h1 class='title is-3'>{{pageTitle}}</h1>
+				{{if(options.message)}}
+					<h2 class='subtitle is-5'>{{message}}</h2>
+				{{/if}}
+			</div>
+		</div>
+	</main>
+
+	{{include(footer)/}}
+</body>
+
+</html>

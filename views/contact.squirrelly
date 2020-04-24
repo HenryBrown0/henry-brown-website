@@ -13,7 +13,13 @@
 
 		<main class='section'>
 			<div class='container'>
-				<p>No blog posts</p>
+				<div class='columns'>
+					<div
+						class='column is-12-mobile is-9-tablet is-8-desktop is-7-widescreen is-5-fullhd'
+					>
+						{{include(contactForm)/}}
+					</div>
+				</div>
 			</div>
 		</main>
 	</div>
@@ -22,4 +28,3 @@
 </body>
 
 </html>
-
