@@ -16,6 +16,11 @@ $serviceImage: '/image/bird-progressive.jpg';
 	top: 0;
 	position: sticky;
 }
+.is-sticky-top-section {
+	top: 3.25rem;
+	position: sticky;
+	z-index: 99;
+}
 .full-height {
 	min-height: 100vh;
 	justify-content: space-between;

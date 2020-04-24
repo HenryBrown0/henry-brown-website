@@ -36,13 +36,13 @@
 				{{foreach(options.services)}}
 					<section
 						id='{{@this.title}}'
-						class='hero {{if(@this.isBackgroundDark)}}is-dark{{/if}}'
+						class='hero is-small is-sticky-top-section{{if(@this.isBackgroundDark)}} is-dark{{/if}}'
 						style='background-color: #{{@this.backgroundColor}};'
 					>
-						<div class="hero-body">
-							<div class="container">
-								<h1 class="title is-4">{{@this.title}}</h1>
-								<h2 class="subtitle is-6">{{@this.subtitle}}</h2>
+						<div class='hero-body'>
+							<div class='container'>
+								<h1 class='title is-4'>{{@this.title}}</h1>
+								<h2 class='subtitle is-6'>{{@this.subtitle}}</h2>
 							</div>
 						</div>
 					</section>
@@ -54,10 +54,10 @@
 				{{/foreach}}
 			{{/if}}
 
-			<section id='contact' class="hero is-primary is-bold is-info">
-				<div class="hero-body">
-					<div class="container">
-						<h1 class="title is-4">Contact</h1>
+			<section id='contact' class='hero is-primary is-small is-bold is-info is-sticky-top-section'>
+				<div class='hero-body'>
+					<div class='container'>
+						<h1 class='title is-4'>Contact</h1>
 						<h2 class='subtitle is-6'>
 							For more information or pricing please get in touch
 						</h2>
@@ -67,7 +67,13 @@
 
 			<section class='section'>
 				<div class='container'>
-					{{include(contactForm)/}}
+					<div class='columns'>
+						<div
+							class='column is-12-mobile is-9-tablet is-8-desktop is-7-widescreen is-5-fullhd'
+						>
+							{{include(contactForm)/}}
+						</div>
+					</div>
 				</div>
 			</section>
 		</div>
