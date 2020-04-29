@@ -3,6 +3,7 @@ import helmet from 'helmet';
 import path from 'path';
 import * as sentry from '@sentry/node';
 import routes from './routes';
+import cronJob from './routes/cronJob';
 import setupPartials from './setupPartials';
 import { captureException } from './helpers/logger';
 import cloudflareProxy from './lib/cloudflareProxy';
@@ -29,6 +30,7 @@ if (NODE_ENV === 'production' || NODE_ENV === 'staging') {
 	app.use(cloudflareProxy);
 }
 app.use('/', routes);
+app.use('/cron-job', cronJob);
 app.use('/static', express.static(path.join(__dirname, 'static'), {
 	maxAge: '14d',
 }));
