@@ -28,7 +28,7 @@ const read = async (name?: string): Promise<IService[]> => {
 	if (name) {
 		try {
 			const queryResult = await databaseQuery(
-				'SELECT title, subtitle, backgroundColor, isBackgroundDark, content FROM service WHERE title=$1 LIMIT 1',
+				'SELECT title, subtitle, backgroundColor, isBackgroundDark, content FROM service WHERE title=$1',
 				[name],
 			);
 			if (!queryResult.rowCount) return [];
