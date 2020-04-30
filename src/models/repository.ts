@@ -72,7 +72,9 @@ const read = async (name?: string): Promise<IRepository[]> => {
 			'SELECT id, name, description, updated_at, is_archived, background_color, is_background_dark, git_hub_url, read_me FROM repository',
 		);
 		if (!queryResult.rowCount) return [];
-		return queryResult.rows.map(transformRepository);
+		return queryResult.rows
+			.map(transformRepository)
+			.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
 	} catch (error) {
 		captureException(error);
 		return [];

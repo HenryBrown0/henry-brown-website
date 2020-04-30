@@ -1,103 +1,46 @@
-import { Request, Response } from 'express'; // eslint-disable-line
-import { Severity } from '@sentry/node';
-import cache from '../helpers/cache';
-import getGitHubReadMe from '../models/gitHubReadMe';
-import getGithubRepository from '../models/gitHubRepository';
-import { captureException, captureMessage } from '../helpers/logger';
+import { RequestHandler } from 'express'; // eslint-disable-line
+import { captureException } from '../helpers/logger';
 import getNavigationBarItems from '../helpers/navigationBarItems';
-
-interface IFullRepository {
-	backgroundColor: string;
-	description: string;
-	gitHubUrl: string;
-	isBackgroundDark: boolean;
-	name: string;
-	project: string;
-	uri: string;
-}
+import repositoryModel from '../models/repository';
 
 const navigationBarItems = getNavigationBarItems('project');
 
-const projectNotFound: {
-	pageTitle: string,
-	description: string,
-	navigationBarItems: {}[],
-	backgroundColor: string,
-	gitHubUrl: string,
-	isBackgroundDark: string,
-	uri: string,
-	project: string,
-} = {
-	pageTitle: 'Project not found',
-	description: null,
-	navigationBarItems,
-	backgroundColor: null,
-	gitHubUrl: null,
-	isBackgroundDark: null,
-	uri: null,
-	project: null,
-};
-
-const project = async (request: Request, response: Response) => {
+const project: RequestHandler = async (request, response) => {
 	const { projectName } = request.params;
 
-	response.setHeader('Cache-Control', 'max-age=300');
-	response.setHeader('Cache-Control', 's-maxage=900');
-
-	const fullRepository: IFullRepository = cache.get(projectName);
-	if (fullRepository) {
-		return response.render('project', {
-			pageTitle: fullRepository.name,
-			description: fullRepository.description,
+	let repository;
+	try {
+		repository = await repositoryModel.read(projectName);
+	} catch (error) {
+		captureException(error);
+		response.setHeader('Cache-Control', 'no-store');
+		response.statusCode = 500;
+		return response.render('fullScreenMessage', {
+			pageTitle: 'Something went wrong my end',
 			navigationBarItems,
-			backgroundColor: fullRepository.backgroundColor,
-			gitHubUrl: fullRepository.gitHubUrl,
-			isBackgroundDark: fullRepository.isBackgroundDark,
-			uri: fullRepository.uri,
-			project: fullRepository.project,
+			heroType: 'is-danger',
+			message: 'I\'ve been notified and will fix this soon',
 		});
 	}
 
-	let repository;
-	let readMe: string;
-	try {
-		[repository, readMe] = await Promise.all([
-			getGithubRepository(projectName),
-			getGitHubReadMe(projectName),
-		]);
-	} catch (error) {
-		captureException(error);
-		return response.sendStatus(500);
-	}
+	response.setHeader('Cache-Control', 'public, no-cache, proxy-revalidate');
 
-	if (!repository) {
+	if (!repository || !repository.length) {
 		response.statusCode = 404;
-		return response.render('project', projectNotFound);
+		return response.render('project', {
+			pageTitle: 'Project not found',
+			navigationBarItems,
+		});
 	}
-
-	if (repository.isPrivate) {
-		captureMessage('Private repository attempted to fetch', Severity.Warning);
-		response.statusCode = 404;
-		return response.render('project', projectNotFound);
-	}
-
-	if (!readMe) {
-		captureMessage('Empty GitHub read me response', Severity.Warning);
-		response.statusCode = 404;
-		return response.render('project', projectNotFound);
-	}
-
-	cache.set(repository.uri, { ...repository, project: readMe }, 7200);
 
 	return response.render('project', {
-		pageTitle: repository.name,
-		description: repository.description,
+		pageTitle: repository[0].name,
+		description: repository[0].description,
 		navigationBarItems,
-		backgroundColor: repository.backgroundColor,
-		gitHubUrl: repository.gitHubUrl,
-		isBackgroundDark: repository.isBackgroundDark,
-		uri: repository.uri,
-		project: readMe,
+		backgroundColor: repository[0].backgroundColor,
+		gitHubUrl: repository[0].gitHubUrl,
+		isBackgroundDark: repository[0].isBackgroundDark,
+		readMe: repository[0].readMe,
 	});
 };
 

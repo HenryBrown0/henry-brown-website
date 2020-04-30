@@ -31,7 +31,6 @@
     "helmet": "^3.21.2",
     "ip-cidr": "^2.0.11",
     "markdown-it": "^10.0.0",
-    "node-cache": "^5.1.0",
     "pg": "^8.0.2",
     "squirrelly": "^7.9.0",
     "tinycolor2": "^1.4.1",

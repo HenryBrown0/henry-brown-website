@@ -1,40 +1,44 @@
-import { Request, Response } from 'express'; // eslint-disable-line
-import cache from '../helpers/cache';
-import getGithubRepositories from '../models/gitHubRepositories';
+import { RequestHandler } from 'express'; // eslint-disable-line
 import { captureException } from '../helpers/logger';
 import getNavigationBarItems from '../helpers/navigationBarItems';
 
+import repositoryModel from '../models/repository';
+
 const navigationBarItems = getNavigationBarItems('project');
 
-const projects = async (_: Request, response: Response) => {
-	response.setHeader('Cache-Control', 'max-age=300');
-	response.setHeader('Cache-Control', 's-maxage=900');
-
-	const fullRepositories: any[] = cache.get('projects');
-	if (fullRepositories && fullRepositories.length) {
-		return response.render('projects', {
-			pageTitle: 'Projects',
-			description: null,
+const projects: RequestHandler = async (_request, response) => {
+	let repositories;
+	try {
+		repositories = await repositoryModel.read();
+	} catch (error) {
+		captureException(error);
+		response.setHeader('Cache-Control', 'no-store');
+		response.statusCode = 500;
+		return response.render('fullScreenMessage', {
+			pageTitle: 'Something went wrong my end',
 			navigationBarItems,
-			projects: fullRepositories,
+			heroType: 'is-danger',
+			message: 'I\'ve been notified and will fix this soon',
 		});
 	}
 
-	let githubRepositories;
-	try {
-		githubRepositories = await getGithubRepositories(20);
-	} catch (error) {
-		captureException(error);
-		return response.sendStatus(500);
-	}
+	response.setHeader('Cache-Control', 'public, no-cache, proxy-revalidate');
 
-	cache.set('projects', githubRepositories, 7200);
+	if (!repositories || !repositories.length) {
+		return response.render('projects', {
+			pageTitle: 'No projects found',
+			navigationBarItems,
+			projects: [],
+		});
+	}
 
 	return response.render('projects', {
 		pageTitle: 'Projects',
-		description: null,
 		navigationBarItems,
-		projects: githubRepositories,
+		projects: repositories.map((repository) => {
+			const humanDate = repository.updatedAt.toDateString();
+			return { ...repository, updatedAt: humanDate };
+		}),
 	});
 };
 
