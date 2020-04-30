@@ -33,7 +33,7 @@
 											<div>
 												<div
 													class='card-image'
-													style='background-color: {{@this.backgroundColor}};'
+													style='background-color: #{{@this.backgroundColor}};'
 												></div>
 												<div class='card-content'>
 													<h3 class='title is-3'>
@@ -62,7 +62,7 @@
 													<small>Last updated: {{@this.updatedAt}}</small>
 												</p>
 												<footer class='card-footer'>
-													<a href='{{@this.link}}' class='card-footer-item'>
+													<a href='/project/{{@this.id}}' class='card-footer-item'>
 														<span>
 															Read more
 														</span>

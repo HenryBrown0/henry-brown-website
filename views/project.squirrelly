@@ -11,7 +11,7 @@
 
 		<section
 			class='hero {{if(options.isBackgroundDark)}}is-dark{{/if}}'
-			style='background-color: {{backgroundColor}};'
+			style='background-color: #{{backgroundColor}};'
 		>
 			<div class='hero-body'>
 				<div class='container'>
@@ -49,10 +49,10 @@
 						</div>
 					</div>
 				{{/if}}
-				{{if(options.project)}}
+				{{if(options.readMe)}}
 					<div class='columns'>
 						<div class='column'>
-							<div class='content'>{{project | safe}}</div>
+							<div class='content'>{{readMe | safe}}</div>
 						</div>
 					</div>
 				{{/if}}
