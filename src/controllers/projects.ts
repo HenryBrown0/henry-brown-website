@@ -25,7 +25,6 @@ const projects: RequestHandler = async (_request, response) => {
 	response.setHeader('Cache-Control', 'public, no-cache, proxy-revalidate');
 
 	if (!repositories || !repositories.length) {
-		response.statusCode = 404;
 		return response.render('projects', {
 			pageTitle: 'No projects found',
 			navigationBarItems,
