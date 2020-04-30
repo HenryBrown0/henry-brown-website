@@ -15,6 +15,8 @@ const service: RequestHandler = async (_request, response) => {
 		return response.sendStatus(500);
 	}
 
+	response.setHeader('Cache-Control', 'public, no-cache, proxy-revalidate');
+
 	return response.render('service', {
 		pageTitle: 'Services',
 		description: null,
