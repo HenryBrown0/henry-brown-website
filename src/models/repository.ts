@@ -15,6 +15,24 @@ interface IRawRepository {
 }
 /* eslint-enable camelcase */
 
+const tempImages = [
+	{
+		src: '/image/project/henry-brown-website/henry-brown-website-home.png',
+		thumbnail: '/image/project/henry-brown-website/henry-brown-website-home-thumbnail.png',
+		alt: 'Henry Brown - Home',
+	},
+	{
+		src: '/image/project/henry-brown-website/henry-brown-website-projects.png',
+		thumbnail: '/image/project/henry-brown-website/henry-brown-website-projects-thumbnail.png',
+		alt: 'Henry Brown - Projects',
+	},
+	{
+		src: '/image/project/henry-brown-website/henry-brown-website-project.png',
+		thumbnail: '/image/project/henry-brown-website/henry-brown-website-project-thumbnail.png',
+		alt: 'Henry Brown - Individual Project',
+	},
+];
+
 const transformRepository = (repository: IRawRepository): IRepository => (
 	{
 		id: repository.id,
@@ -26,6 +44,7 @@ const transformRepository = (repository: IRawRepository): IRepository => (
 		isBackgroundDark: repository.is_background_dark,
 		gitHubUrl: repository.git_hub_url,
 		readMe: repository.read_me,
+		images: repository.id !== 'henry-brown-website' ? [] : tempImages,
 	}
 );
 

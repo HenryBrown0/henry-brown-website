@@ -41,6 +41,7 @@ const project: RequestHandler = async (request, response) => {
 		gitHubUrl: repository[0].gitHubUrl,
 		isBackgroundDark: repository[0].isBackgroundDark,
 		readMe: repository[0].readMe,
+		images: repository[0].images,
 	});
 };
 

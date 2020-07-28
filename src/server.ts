@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { response } from 'express';
 import helmet from 'helmet';
 import path from 'path';
 import * as sentry from '@sentry/node';
@@ -32,9 +32,15 @@ if (NODE_ENV === 'production' || NODE_ENV === 'staging') {
 app.use('/', routes);
 app.use('/cron-job', cronJob);
 app.use('/static', express.static(path.join(__dirname, 'static'), {
-	maxAge: '14d',
+	setHeaders: (staticResponse) => {
+		staticResponse.setHeader('Cache-Control', 'public, max-age=86400');
+	},
 }));
-app.use('/', express.static(path.join(__dirname, '../public')));
+app.use('/', express.static(path.join(__dirname, '../public'), {
+	setHeaders: (staticResponse) => {
+		staticResponse.setHeader('Cache-Control', 'public, max-age=604800');
+	},
+}));
 
 app.use(sentry.Handlers.errorHandler());
 
