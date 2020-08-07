@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://username:password@db:5432/portfolio
+      DATABASE_NO_SSL: 1 # Remove in production!
+  db:
+    image: postgres:12
+    volumes:
+      - ./config/postgres:/docker-entrypoint-initdb.d/
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: portfolio
