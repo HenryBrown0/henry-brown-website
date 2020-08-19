@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import * as Sqrl from 'squirrelly';
 
-const partialDirectory: string = path.join(__dirname, '../partials');
+const partialDirectory: string = path.join(__dirname, './templates/partials');
 
 const setPartial = async (partialName: string, partialLocation: string) => {
 	fs.readFile(partialLocation, (err, data) => {
@@ -19,7 +19,7 @@ const loadPartials = async () => {
 	/* eslint-disable */
 	for await (const dirent of dir) {
 		const partialName = dirent.name.split('.')[0];
-		const partialLocation = path.join(__dirname, '../partials/' + dirent.name);
+		const partialLocation = path.join(partialDirectory + '/' + dirent.name);
 
 		await setPartial(partialName, partialLocation);
 	}
