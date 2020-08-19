@@ -15,7 +15,7 @@
     "setup-db": "node ./setup.js",
     "test": "yarn test-types && yarn test-lint",
     "test-types": "yarn build-ts --noEmit",
-    "test-lint": "eslint -c ./config/.eslintrc.json 'src/**'"
+    "test-lint": "eslint -c ./config/.eslintrc.json 'src/**.ts'"
   },
   "author": "HenryBrown0",
   "license": "MIT",
