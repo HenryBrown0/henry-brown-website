@@ -3,7 +3,6 @@ FROM node:12
 
 # Create app directory
 WORKDIR /app
-RUN mkdir -p dist/static/styles
 
 # Install app dependencies
 COPY package.json /app
@@ -16,6 +15,9 @@ COPY . /app
 
 # Expose port 3000
 EXPOSE 3000
+
+# Build application
+RUN yarn build
 
 # Start the project
 CMD ["yarn", "start"]
