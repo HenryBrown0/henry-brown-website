@@ -7,12 +7,11 @@
 		"moduleResolution": "node",
 		"sourceMap": true,
 		"resolveJsonModule": true,
-		"outDir": "dist",
-		"sourceRoot": "/",
+		"outDir": "../dist",
 		"inlineSources": true
 	},
 	"include": [
-		"src/**/*"
+		"../src/**/*"
 	],
 	"exclude": [
 		"node_modules"

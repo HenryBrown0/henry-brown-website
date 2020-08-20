@@ -4,6 +4,7 @@ import * as sentry from '@sentry/node';
 const { NODE_ENV } = process.env;
 
 const sendToSentry: { [key: string]: boolean } = {
+	review: true,
 	staging: true,
 	production: true,
 };
