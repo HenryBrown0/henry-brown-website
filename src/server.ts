@@ -10,6 +10,10 @@ import cloudflareProxy from './lib/cloudflareProxy';
 
 const { SENTRY_DSN, NODE_ENV = 'development', PORT } = process.env;
 
+const VIEWS_DIRECTORY: string = path.join(__dirname, './templates/views');
+const STATIC_DIRECTORY: string = path.join(__dirname, 'static');
+const PUBLIC_DIRECTORY: string = path.join(__dirname, '../public');
+
 const app = express();
 
 sentry.init({
@@ -21,7 +25,7 @@ if (NODE_ENV === 'production' || NODE_ENV === 'staging') {
 	app.set('trust proxy', true);
 }
 app.set('view engine', 'squirrelly');
-app.set('views', 'views');
+app.set('views', VIEWS_DIRECTORY);
 
 app.use(sentry.Handlers.requestHandler());
 app.use(helmet());
@@ -31,12 +35,12 @@ if (NODE_ENV === 'production' || NODE_ENV === 'staging') {
 }
 app.use('/', routes);
 app.use('/cron-job', cronJob);
-app.use('/static', express.static(path.join(__dirname, 'static'), {
+app.use('/static', express.static(STATIC_DIRECTORY, {
 	setHeaders: (staticResponse) => {
 		staticResponse.setHeader('Cache-Control', 'public, max-age=86400');
 	},
 }));
-app.use('/', express.static(path.join(__dirname, '../public'), {
+app.use('/', express.static(PUBLIC_DIRECTORY, {
 	setHeaders: (staticResponse) => {
 		staticResponse.setHeader('Cache-Control', 'public, max-age=604800');
 	},

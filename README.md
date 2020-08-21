@@ -16,38 +16,69 @@ local machine for development and testing purposes.
 You'll need to install the following software:
 
 ```
-Node.js v12.13.0
-Yarn v1.19.1
-PostgreSQL v12
+Docker
+Docker Compose
+NodeJs v12.13 (dev only)
+Yarn v.19 (dev only)
 ```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env
-running
+- [Testing environment](#Testing)
+- [Development environment](#Development)
 
-Once the repo has been cloned install the dependencies
+#### Testing
+
+A step by step series of examples that tell you how to get a testing env
+running.
+
+Once the repo has been cloned, build the dock compose images for testing:
+
+```
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
+```
+
+Start the project locally on port 80:
+
+```
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+```
+
+Go to [http://localhost:80](http://localhost:80) to see the site.
+
+To stop the services: `CTRL+c`
+
+
+#### Development
+
+A step by step series of examples that tell you how to get a development env
+running.
+
+Once the repo has been cloned, install the dependencies:
 
 ```
 yarn install
 ```
 
-Setup the database using the setup command
+Build the dock compose images:
 
 ```
-yarn setup
+docker-compose build
 ```
 
-Start the project locally on port 3000
+Start the project locally on port 9000:
 
 ```
-yarn start
+docker-compose up
 ```
 
-Go to [http://localhost:3000](http://localhost:3000) to see the site
+Go to [http://localhost:9000](http://localhost:9000) to see the site.
+
+To stop the services: `CTRL+c`
 
 ## Built With
 
+* [Docker, docker-compose](https://docs.docker.com/) - Containers
 * [Node.js](https://nodejs.org/) - Environment to run JavaScript server-side
 * [Express.js](https://expressjs.com/) - Web framework for Node.js
 * [Express-validator](https://express-validator.github.io/) - Express middleware for the validator module
@@ -83,4 +114,4 @@ see the
 
 This project is licensed under the MIT License - see the
 [LICENSE.md](https://github.com/HenryBrown0/henry-brown-website/blob/master/LICENSE)
-file for details
+file for details.

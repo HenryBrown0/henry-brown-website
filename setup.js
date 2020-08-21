@@ -17,7 +17,7 @@ if (NODE_ENV !== 'development') {
 
 const pool = new Pool(poolConfig);
 
-const schemaPath = path.join(__dirname, 'schema.sql');
+const schemaPath = path.join(__dirname, 'config/postgres/0-schema.sql');
 
 const runQuery = (statements) => {
 	if (!statements.length) return [];
