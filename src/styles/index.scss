@@ -62,3 +62,12 @@ $serviceImage: '/image/bird-progressive.jpg';
 .card-image {
 	height: 1rem;
 }
+.slide-show {
+	white-space: nowrap;
+	max-width: 100%;
+	overflow-y: hidden;
+	overflow-x: auto;
+}
+.modal-alt {
+	margin-top: 0.3rem;
+}

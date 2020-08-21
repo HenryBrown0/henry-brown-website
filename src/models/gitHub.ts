@@ -29,6 +29,7 @@ const transformGitHubRepository = (repository: IRawGitHubRepository): IRepositor
 		backgroundColor: backgroundColor.split('#')[1],
 		isBackgroundDark: tinyColor(backgroundColor).isDark(),
 		gitHubUrl: repository.url,
+		images: [],
 	};
 };
 

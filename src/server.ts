@@ -36,9 +36,15 @@ if (NODE_ENV === 'production' || NODE_ENV === 'staging') {
 app.use('/', routes);
 app.use('/cron-job', cronJob);
 app.use('/static', express.static(STATIC_DIRECTORY, {
-	maxAge: '14d',
+	setHeaders: (staticResponse) => {
+		staticResponse.setHeader('Cache-Control', 'public, max-age=86400');
+	},
 }));
-app.use('/', express.static(PUBLIC_DIRECTORY));
+app.use('/', express.static(PUBLIC_DIRECTORY, {
+	setHeaders: (staticResponse) => {
+		staticResponse.setHeader('Cache-Control', 'public, max-age=604800');
+	},
+}));
 
 app.use(sentry.Handlers.errorHandler());
 
