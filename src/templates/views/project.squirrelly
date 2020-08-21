@@ -3,16 +3,6 @@
 
 <head>
 	{{include(head)/}}
-	<style>
-		.slide-show {
-			white-space: nowrap;
-			max-width: 100%;
-			overflow-y: scroll;
-		}
-		.modal-alt {
-			margin-top: 0.3rem;
-		}
-	</style>
 </head>
 
 <body class='is-flex full-height'>
@@ -93,6 +83,7 @@
 				</div>
 			</div>
 		</main>
+
 		<div id='image-modal' class='modal'>
 			<div id='image-modal-background' class='modal-background'></div>
 			<div class='modal-content'>
@@ -109,6 +100,7 @@
 				aria-label='close'
 			></button>
 		</div>
+
 	</div>
 	{{include(footer)/}}
 </body>
