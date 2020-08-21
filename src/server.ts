@@ -1,4 +1,4 @@
-import express, { response } from 'express'; // eslint-disable-line
+import express from 'express';
 import helmet from 'helmet';
 import path from 'path';
 import * as sentry from '@sentry/node';
