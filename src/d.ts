@@ -8,4 +8,9 @@ interface IRepository {
 	isBackgroundDark: boolean;
 	gitHubUrl: string;
 	readMe?: string;
+	images: {
+		src: string,
+		thumbnail: string,
+		alt: string,
+	}[];
 }

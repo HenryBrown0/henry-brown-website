@@ -31,9 +31,35 @@
 
 		<main class='section'>
 			<div class='container'>
-				{{if(options.gitHubUrl)}}
-					<div class='columns'>
-						<div class='column'>
+				<div class='columns is-multiline'>
+					{{if(options.images)}}
+						<div class='column is-12'>
+							<div class='slide-show'>
+								{{foreach(options.images)}}
+									<a
+										href='#{{@this.alt}}'
+										onclick='openImageModal("{{@this.src}}", "{{@this.alt}}")'
+										class='is-inline-block'
+									>
+										<div>
+											<figure
+												class='image is-128x128 has-background-grey-lighter'
+											>
+												<img
+													src='{{@this.thumbnail}}'
+													height='128'
+													width='128'
+												/>
+											</figure>
+										</div>
+									</a>
+								{{/foreach}}
+							</div>
+						</div>
+					{{/if}}
+
+					{{if(options.gitHubUrl)}}
+						<div class='column is-12'>
 							<a href='{{gitHubUrl}}' class='button' target='_blank'>
 								<span class='icon is-small'>
 									<span class='icon'>
@@ -47,19 +73,35 @@
 								<span>View on GitHub</span>
 							</a>
 						</div>
-					</div>
-				{{/if}}
-				{{if(options.readMe)}}
-					<div class='columns'>
-						<div class='column'>
+					{{/if}}
+
+					{{if(options.readMe)}}
+						<div class='column is-12'>
 							<div class='content'>{{readMe | safe}}</div>
 						</div>
-					</div>
-				{{/if}}
+					{{/if}}
+				</div>
 			</div>
 		</main>
-	</div>
 
+		<div id='image-modal' class='modal'>
+			<div id='image-modal-background' class='modal-background'></div>
+			<div class='modal-content'>
+				<div class='image' class='modal-image'>
+					<img id='image-modal-image' />
+				</div>
+				<div class='content has-text-centered has-text-grey-lighter modal-alt'>
+					<span id='image-modal-alt'></span>
+				</div>
+			</div>
+			<button
+				id='image-modal-close-btn'
+				class='modal-close is-large'
+				aria-label='close'
+			></button>
+		</div>
+
+	</div>
 	{{include(footer)/}}
 </body>
 
